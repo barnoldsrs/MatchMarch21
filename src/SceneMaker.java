@@ -38,7 +38,7 @@ public class SceneMaker extends Application
     private TopScoreMgr topScoreMgr;
     
     //StateEvntTransitionEntry[] mainMenuStateTable;
-    
+    static ArrayList<Candidate> canList;    // The entire list of Candidates
     
  
     @Override
@@ -55,8 +55,14 @@ public class SceneMaker extends Application
 
        topScoreMgr.testModifySpeedList();
        topScoreMgr.testModifyTimedList();
-       
-       
+
+        /*
+         * Call module to load Candidates and images.
+         * Call module to select an image.
+         */
+        CandidateMgr.restoreCandidates();
+        canList = CandidateMgr.getCanList();
+
         /*
          * Create Scenes ahead of time
          */
@@ -83,6 +89,7 @@ public class SceneMaker extends Application
         // Game, speed mode
        SceneGameSpeed sceneObjGameSpeed = new SceneGameSpeed(stage);
        sceneSpeedGame = sceneObjGameSpeed.getScene();
+       sceneObjGameSpeed.initializeTargetCans(canList);
 
        // Game, timed mode
        SceneGameTimed sceneObjGameTimed = new SceneGameTimed(stage);

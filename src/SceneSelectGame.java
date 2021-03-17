@@ -85,7 +85,13 @@ public class SceneSelectGame
     private void buttonClickToSpeedModeGame(ActionEvent event)
     {
        localStage.setTitle("Speed Mode Game");
-       localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_GAMESPEED));
+       /*
+        * Do all of the stuff to initialize the speed mode game
+        */
+
+        //SceneGameSpeed.resetSpeedGame();
+
+        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_GAMESPEED));
        localStage.show();
 
     }    
