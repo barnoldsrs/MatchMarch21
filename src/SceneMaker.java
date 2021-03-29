@@ -33,6 +33,8 @@ public class SceneMaker extends Application
     private Scene sceneSelectGame;
     private Scene sceneSpeedGame;
     private Scene sceneTimedGame;
+    private Scene sceneReadyStartTimed;
+    private Scene sceneReadyStartSpeed;
     private Scene sceneBbye;
     
     private TopScoreMgr topScoreMgr;
@@ -94,6 +96,14 @@ public class SceneMaker extends Application
        // Game, timed mode
        SceneGameTimed sceneObjGameTimed = new SceneGameTimed(stage);
        sceneTimedGame = sceneObjGameTimed.getScene();
+
+       // ReadyStart before timed gameplay
+        SceneReadyStartTimed sceneObjReadyStartTimed = new SceneReadyStartTimed(stage);
+        sceneReadyStartTimed = sceneObjReadyStartTimed.getScene();
+
+        // ReadyStart before speed gameplay
+        SceneReadyStartSpeed sceneObjReadyStartSpeed = new SceneReadyStartSpeed(stage);
+        sceneReadyStartSpeed = sceneObjReadyStartSpeed.getScene();
        
        // B'bye screen upon exit
        SceneBbye sceneObjBbye = new SceneBbye(stage);
@@ -109,6 +119,8 @@ public class SceneMaker extends Application
        SceneMgr.setScene(SceneMgr.IDX_SELECTGAME,       sceneSelectGame);
        SceneMgr.setScene(SceneMgr.IDX_GAMESPEED,        sceneSpeedGame);
        SceneMgr.setScene(SceneMgr.IDX_GAMETIMED,        sceneTimedGame);
+        SceneMgr.setScene(SceneMgr.IDX_READYSTARTTIMED, sceneReadyStartTimed);
+        SceneMgr.setScene(SceneMgr.IDX_READYSTARTSPEED, sceneReadyStartSpeed);
        SceneMgr.setScene(SceneMgr.IDX_BBYE,             sceneBbye);
        
 

@@ -31,7 +31,9 @@ public class SceneMgr
     public static final int IDX_GAMESPEED = 6;
     public static final int IDX_GAMETIMED = 7;
     public static final int IDX_BBYE = 8;
-    public static final int IDX_LASTINDEX = 9;
+    public static final int IDX_READYSTARTTIMED = 9;
+    public static final int IDX_READYSTARTSPEED = 10;
+    public static final int IDX_LASTINDEX = 11;
     
     
     
