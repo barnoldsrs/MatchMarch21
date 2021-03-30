@@ -77,7 +77,7 @@ public class SceneSelectGame
     private void buttonClickToTimeModeGame(ActionEvent event)
     {
        localStage.setTitle("Timed Mode Game");
-       localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_GAMETIMED));
+       localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_READYSTARTTIMED));
        localStage.show();
 
     }   
@@ -91,7 +91,7 @@ public class SceneSelectGame
 
         //SceneGameSpeed.resetSpeedGame();
 
-        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_GAMESPEED));
+        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_READYSTARTSPEED));
        localStage.show();
 
     }    
