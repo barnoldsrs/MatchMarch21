@@ -8,10 +8,19 @@
  *
  */
 
-
+import java.lang.Object;
+import java.lang.Class;
+import java.lang.ClassLoader;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+
+
 import java.io.Serializable;
 
 public class Candidate implements Serializable
@@ -51,9 +60,13 @@ public class Candidate implements Serializable
         numDecoyGuessedWrong = 0;
         imageName = iName;
         try {
-            //canImage = new Image(new FileInputStream(imageName));
-            //canImage = new Image(new FileInputStream(getClass().getClassLoader().getResource(imageName)));
-            canImage = new Image(new FileInputStream("./MatchMarch21/res/" + imageName)); // FIXME.  The right way.
+            // THIS WORKED, BUT NEED TO USE RESOURCE
+            //canImage = new Image(new FileInputStream("./MatchMarch21/res/" + imageName));
+            //canImage = new Image(new FileInputStream(getClass().getClassLoader().getResourceAsStream(".//res//" + imageName)));
+
+            // This is from setImage().
+            this.canImage = new Image(getClass().getClassLoader().getResourceAsStream(imageName));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -66,16 +79,15 @@ public class Candidate implements Serializable
     public void setImage()
     {
         try {
-            //canImage = new Image(new FileInputStream(imageName));
-            //canImage = new Image(new FileInputStream(getClass().getClassLoader().getResource(imageName)));
-//            this.canImage = new Image(new FileInputStream(".//res//" + imageName));
- //           String currentDirectory = System.getProperty("user.dir");
- //           System.out.println("The current working directory is " + currentDirectory);
 
+            System.out.println(imageName);
 
-            String openName = "./MatchMarch21/res/" + imageName;
-            System.out.println(openName);
-            this.canImage = new Image(new FileInputStream(openName));
+//          this.canImage = new Image(new FileInputStream(getClass().getClassLoader().getResourceAsStream(openName)));
+//          this.canImage = new Image(new FileInputStream(getClass().getClassLoader().getResourceAsStream(imageName)));
+
+            //EXPERIMENTS
+           this.canImage = new Image(getClass().getClassLoader().getResourceAsStream(imageName));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

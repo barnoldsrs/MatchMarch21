@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class CandidateMgr
 {
+    private static final String CAND_SET_FILE_NAME = "CandidateSet2.ser";   // list of candidates
     private static ArrayList<Candidate> candSet1;           // List used when creating candidates the first time
     private static ArrayList<Candidate> restoredCandSet1;   // List created when building from serialized file (restore)
     //private static ArrayList<Image> imageSet1;
@@ -99,7 +100,7 @@ public class CandidateMgr
 
         // Write the serialized ArrayList to a file
         try {
-            FileOutputStream fs = new FileOutputStream("CandidateSet2.ser");
+            FileOutputStream fs = new FileOutputStream(CAND_SET_FILE_NAME);
             ObjectOutputStream os = new ObjectOutputStream(fs);
             os.writeObject(candSet1);
         } catch (Exception ex) {
@@ -122,12 +123,11 @@ public class CandidateMgr
         Image canImage;
 
         try {
-            FileInputStream fileStream = new FileInputStream("CandidateSet2.ser");
+            FileInputStream fileStream = new FileInputStream(CAND_SET_FILE_NAME);
             ObjectInputStream os = new ObjectInputStream(fileStream);
             Object one1 = os.readObject();
 
             restoredCandSet1 = (ArrayList<Candidate>) one1;
-            //numElements = restoredCandSet1.length;
             numElements = restoredCandSet1.size();
             System.out.println("restoredCandSet1 length: " + numElements);
 

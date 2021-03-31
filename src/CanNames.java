@@ -3,6 +3,7 @@ public class CanNames
     /*
      * first name, last name, nickname, and filename of image file.
      */
+    /*
     private static String[][] namesListFaculty =
             {       {"Gary",        "Porper",   "Gary",         "Porper.jpg"},
                     {"Michelle",    "Gallivan", "Michelle",     "Gallivan.jpg"},
@@ -48,18 +49,14 @@ public class CanNames
                     {"Nicole",      "Ashton",   "Nicole",       "Ashton.jpg"},
 
             };
+            */
+
 
     /*
      * getNumNames()
      * Just that.  How many 1D arrays there are in namesList.
      */
-    /*
-    public static int getNumNames()
-    {
-        return namesListStudents.length;
-    }
 
-     */
     public static int getNumNames()
     {
         return namesListStudents.length;
@@ -181,7 +178,7 @@ public class CanNames
             {"William", "Dolan", "William", "WilliamDolan.jpg"},
             {"Huxley", "McKenzie", "Huxley", "HuxleyMcKenzie.jpg"},
             {"Ava", "Heaphy", "Ava", "AvaHeaphy.jpg"},
-            {"Owen", "Heahpy", "Owen", "OwenHeaphy.jpg"},
+            {"Owen", "Heaphy", "Owen", "OwenHeaphy.jpg"},
             {"Ayden", "Morgan", "Ayden", "AydenMorgan.jpg"},
             {"Parsa", "Valdez", "Parsa", "ParsaValdez.jpg"},
             {"Rhys", "Ferrito", "Rhys", "RhysFerrito.jpg"},
