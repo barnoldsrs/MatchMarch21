@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.io.*;
 
 public class CandidateMgr
 {
@@ -105,9 +106,33 @@ public class CandidateMgr
             os.writeObject(candSet1);
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("makeCandidates(): Error writing Candidate set file.");
+            System.out.println("makeCandidates(): Error writing candidate set file.");
         }
         System.out.println("Done with makeCandidates()...");
+    }
+
+    /*
+     * checkForCandidateFile()
+     * Check to see if the candidate set file is present.
+     * If it's not present, create it from CanNames.java.
+     */
+    public static void checkForCandidateFile()
+    {
+
+        /*
+         * Is the candidate set file present?  If not, create it.
+         */
+        try {
+            FileInputStream fileStream = new FileInputStream(CAND_SET_FILE_NAME);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+            System.out.println("checkForCandidateFile: Could not open candidate set file");
+            System.out.println("Attempting to create it...");
+            makeCandidates();
+            System.out.println("Done preparing candidate file...");
+        }
+
+
     }
 
     /*

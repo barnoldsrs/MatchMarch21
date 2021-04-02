@@ -59,9 +59,11 @@ public class SceneMaker extends Application
        topScoreMgr.testModifyTimedList();
 
         /*
-         * Call module to load Candidates and images.
-         * Call module to select an image.
+         * Make sure CandidateSet file exists.  If it doesn't, create it.
+         * Open CandidateSet file, load candidate info and images.
+         * Select first candidate and decoy images/names.
          */
+        CandidateMgr.checkForCandidateFile();
         CandidateMgr.restoreCandidates();
         canList = CandidateMgr.getCanList();
 
