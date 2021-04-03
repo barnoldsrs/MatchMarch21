@@ -52,7 +52,16 @@ public class SceneMaker extends Application
     
     public void doActualStuff(Stage stage)
     {
-       topScoreMgr = new TopScoreMgr();       
+        // Cannot get this to work yet, so...
+        //String version = this.getClass().getPackage().getImplementationVersion();
+
+        // ...implement brute force method instead.
+        String versionInfo = VersionAbout.getVersionInfo();
+        String aboutInfo = VersionAbout.getAboutInfo();
+        System.out.println("Version: " + versionInfo);
+        System.out.println("About: " + aboutInfo);
+
+        topScoreMgr = new TopScoreMgr();
        topScoreMgr.initializeTopScoreLists();
 
        topScoreMgr.testModifySpeedList();

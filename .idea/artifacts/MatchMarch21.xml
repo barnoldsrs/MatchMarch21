@@ -4,11 +4,21 @@
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="SceneMaker" />
-        <option name="description" value="" />
+        <option name="customManifestAttributes">
+          <list>
+            <JavaFxManifestAttribute>
+              <option name="name" value="CustomVersion" />
+              <option name="value" value="${now}" />
+            </JavaFxManifestAttribute>
+          </list>
+        </option>
+        <option name="description" value="SWEng Project" />
+        <option name="height" value="600" />
         <option name="htmlPlaceholderId" value="" />
         <option name="title" value="" />
         <option name="vendor" value="Sage Ridge School" />
-        <option name="version" value="" />
+        <option name="version" value="${now}" />
+        <option name="width" value="800" />
       </options>
     </properties>
     <root id="root">
