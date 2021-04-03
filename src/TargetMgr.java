@@ -119,6 +119,5 @@ public class TargetMgr {
         cantUseList.add(0,sourceList.get(0));
 
         return resultCan;
-
     }
 }

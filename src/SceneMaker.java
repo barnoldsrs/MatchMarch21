@@ -54,7 +54,6 @@ public class SceneMaker extends Application
     {
         // Cannot get this to work yet, so...
         //String version = this.getClass().getPackage().getImplementationVersion();
-
         // ...implement brute force method instead.
         String versionInfo = VersionAbout.getVersionInfo();
         String aboutInfo = VersionAbout.getAboutInfo();

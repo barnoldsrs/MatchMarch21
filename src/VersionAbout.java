@@ -1,8 +1,8 @@
 
 
 public class VersionAbout {
-    private static final String versionInfo = "4.2.2021.21:07";
-    private static final String aboutInfo = "Pre-Alpha phase";
+    private static final String versionInfo = "4.2.2021.21:08";
+    private static final String aboutInfo = "Pre-Alpha phase, built by B.Arnold";
 
     public static String getVersionInfo()
     {
