@@ -33,14 +33,16 @@ public class SceneMgr
     public static final int IDX_BBYE = 8;
     public static final int IDX_READYSTARTTIMED = 9;
     public static final int IDX_READYSTARTSPEED = 10;
-    public static final int IDX_LASTINDEX = 11;
+    public static final int IDX_RESULTSSPEED = 11;
+    public static final int IDX_RESULTSTIMED = 12;
+    public static final int IDX_LASTINDEX = 13;
     
     
     
     
     
     
-    private static Scene[] sceneList = new Scene[12];
+    private static Scene[] sceneList = new Scene[14];
     
     public static Scene getScene(int index)
     {
