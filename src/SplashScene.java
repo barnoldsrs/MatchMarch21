@@ -16,30 +16,28 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-public class SceneBbye
-{
+public class SplashScene {
     Image logo = new Image("NameGame.png");
     ImageView logoImg = new ImageView(logo);
 
-    private Scene bByeScene;
+    private Scene splashScene;
     private Stage localStage;
 
     GridPane pane;
-    
-    public SceneBbye(Stage stage)
+
+    public SplashScene(Stage stage)
     {
-        bByeScene = makeSceneBbye();
+        splashScene = makeSceneSplash();
         localStage = stage;
     }
-    
+
     public Scene getScene()
     {
-        return bByeScene;
+        return splashScene;
     }
-    
-    public Scene makeSceneBbye()
-    {               
+
+    public Scene makeSceneSplash()
+    {
         // Create a new grid pane
         pane = new GridPane();
         pane.setPadding(new Insets(10, 10, 10, 10));
@@ -58,11 +56,12 @@ public class SceneBbye
         logoImg.setFitWidth(paneWidth);
 
         pane.add(logoImg, 0, 0);
-        
+
         // JavaFX must have a Scene (window content) inside a Stage (window)
         Scene scene = new Scene(pane, paneWidth,400);
         return scene;
 
     }
-     
+
+
 }
