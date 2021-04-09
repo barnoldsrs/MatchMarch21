@@ -8,6 +8,8 @@
 
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -27,6 +29,7 @@ public class SceneMaker extends Application
      * Scenes we need for this application
      */
     private Scene sceneMainMenu;
+    private Scene sceneSplash;
     private Scene sceneTopScore;
     //private Scene sceneTopScoreSpeed;
     //private Scene sceneTopScoreTimed;
@@ -35,9 +38,13 @@ public class SceneMaker extends Application
     private Scene sceneTimedGame;
     private Scene sceneReadyStartTimed;
     private Scene sceneReadyStartSpeed;
+    private Scene sceneResultsSpeed;
+    private Scene sceneResultsTimed;
     private Scene sceneBbye;
     
     private TopScoreMgr topScoreMgr;
+
+    private Stage localStage;
     
     //StateEvntTransitionEntry[] mainMenuStateTable;
     static ArrayList<Candidate> canList;    // The entire list of Candidates
@@ -46,7 +53,7 @@ public class SceneMaker extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-
+        localStage = stage;
         doActualStuff(stage);
     }
     
@@ -81,6 +88,9 @@ public class SceneMaker extends Application
         // Main menu
        SceneMainMenu sceneObjMainMenu = new SceneMainMenu(stage);
        sceneMainMenu = sceneObjMainMenu.getScene();
+
+       SplashScene sceneObjSplashScene = new SplashScene(stage);
+       sceneSplash = sceneObjSplashScene.getScene();
        
        // Top score menu
        SceneTopScoreMenu sceneObjTopScoreMenu = new SceneTopScoreMenu(stage);
@@ -114,13 +124,21 @@ public class SceneMaker extends Application
         // ReadyStart before speed gameplay
         SceneReadyStartSpeed sceneObjReadyStartSpeed = new SceneReadyStartSpeed(stage);
         sceneReadyStartSpeed = sceneObjReadyStartSpeed.getScene();
+
+        // Result Screen from speed gameplay
+        SceneResultsSpeed sceneObjResultsSpeed = new SceneResultsSpeed(stage);
+        sceneResultsSpeed = sceneObjResultsSpeed.getScene();
+
+        // Result Screen from Timed gameplay
+        SceneResultsTimed sceneObjResultsTimed = new SceneResultsTimed(stage);
+        sceneResultsTimed = sceneObjResultsTimed.getScene();
        
        // B'bye screen upon exit
        SceneBbye sceneObjBbye = new SceneBbye(stage);
        sceneBbye = sceneObjBbye.getScene();
        
      
-       
+       SceneMgr.setScene(SceneMgr.IDX_SPLASH,          sceneSplash);
        SceneMgr.setScene(SceneMgr.IDX_MAINMENU,         sceneMainMenu);
        SceneMgr.setScene(SceneMgr.IDX_MAINMENU,         sceneMainMenu);
        SceneMgr.setScene(SceneMgr.IDX_TOPSCOREMENU,     sceneTopScore);
@@ -131,12 +149,35 @@ public class SceneMaker extends Application
        SceneMgr.setScene(SceneMgr.IDX_GAMETIMED,        sceneTimedGame);
         SceneMgr.setScene(SceneMgr.IDX_READYSTARTTIMED, sceneReadyStartTimed);
         SceneMgr.setScene(SceneMgr.IDX_READYSTARTSPEED, sceneReadyStartSpeed);
+        SceneMgr.setScene(SceneMgr.IDX_RESULTSSPEED,    sceneResultsSpeed);
+        SceneMgr.setScene(SceneMgr.IDX_RESULTSTIMED,    sceneResultsTimed);
        SceneMgr.setScene(SceneMgr.IDX_BBYE,             sceneBbye);
        
 
         // Set the title and scene for the first screen to be visible
-        stage.setTitle("Main Menu");
-        stage.setScene(sceneMainMenu);
+        stage.setTitle("Start");
+        stage.setScene(sceneSplash);
+
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+
+        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_MAINMENU));
+
+            }
+        });
+        new Thread(sleeper).start();
 
         // Show the Stage (window)
         stage.show();
