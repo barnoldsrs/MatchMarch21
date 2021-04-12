@@ -10,6 +10,7 @@ public class SceneReadyStartSpeed {
 
     private Scene readyStartScene;
     private Stage localStage;
+    static long initialTime;
 
     public SceneReadyStartSpeed(Stage stage){
         readyStartScene = makeSceneReadyStart();
@@ -48,6 +49,7 @@ public class SceneReadyStartSpeed {
     }
 
     private void buttonClickBack(ActionEvent event) {
+        initialTime = System.currentTimeMillis();
         localStage.setTitle("Game Select Menu");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_SELECTGAME));
         localStage.show();
@@ -58,4 +60,6 @@ public class SceneReadyStartSpeed {
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_GAMESPEED));
         localStage.show();
     }
+
+
 }

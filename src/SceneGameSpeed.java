@@ -33,8 +33,11 @@ public class SceneGameSpeed
     boolean firstTime = true;
     boolean firstTimePerson = true;
     static int currentSet = 0;                  // which set of the game are we on?
-    static int numCorrect=0;                    // overall counts
-    static int numWrong=0;                      // overall counts
+    static int numCorrect = 0;                    // overall counts
+    static int numWrong = 0;                      // overall counts
+    static long endTime;
+    static int time = 0;                        //time it takes to answer twenty correct questions
+    static int winCondition = 3;
 
     GridPane pane;
 
@@ -237,14 +240,25 @@ public class SceneGameSpeed
 
     private void updateRunningTally()
     {
-        String sTally = "Correct: " + numCorrect + "; Wrong: " + numWrong;
-        labelRunningTally.setText(sTally);
+        if(numCorrect < winCondition) {
+            String sTally = "Correct: " + numCorrect + "; Wrong: " + numWrong;
+            labelRunningTally.setText(sTally);
+        } else {
+            endTime = System.currentTimeMillis();
+            time = (int)((endTime - SceneReadyStartSpeed.initialTime) / 1000);
+            System.out.println("---------------" + time + "----------");
+            SceneResultsSpeed.updatePlayerScore();
+            localStage.setTitle("Speed Results Screen");
+            localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_RESULTSSPEED));
+            localStage.show();
+        }
     }
 
     public void resetSpeedGame()
     {
         numCorrect = 0;
         numWrong = 0;
+        time = 0;
         updateRunningTally();
         nextSet(canList);
     }
@@ -254,5 +268,12 @@ public class SceneGameSpeed
         this.canList = canList;
         resetSpeedGame();
     }
+
+    //Getter methods
+    public int getTime(){  return time; }
+
+    public int getNumCorrect() { return numCorrect; }
+
+    public int getNumWrong(){ return numWrong; }
 
 }
