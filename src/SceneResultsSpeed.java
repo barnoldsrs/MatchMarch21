@@ -1,16 +1,22 @@
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.Static;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class SceneResultsSpeed {
 
+
     private Scene resultsSpeedScene;
     private Stage localStage;
+
+    private static Label playerScore;
 
     String username;
     TextField nameInput;
@@ -37,7 +43,7 @@ public class SceneResultsSpeed {
         nameInput = new TextField("Name");
         Button submitScoreButton = new Button("Submit Score");
         Button buttonToMainMenu = new Button("Main Menu");
-        Label playerScore = new Label("Score Placeholder");
+        playerScore = new Label();
 
         submitScoreButton.setOnAction(this::buttonClickToSubmitScore);
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
@@ -51,10 +57,10 @@ public class SceneResultsSpeed {
         // return pane
         Scene scene = new Scene(pane, 500,400);
 
-
-
         return scene;
     }
+
+
 
     private void buttonClickToMainMenu(ActionEvent event) {
         localStage.setTitle("Main Menu");
@@ -63,9 +69,13 @@ public class SceneResultsSpeed {
     }
 
     private void buttonClickToSubmitScore(ActionEvent event) {
-        TopScoreMgr.submitSpeedScore(new TopScoreEntry(nameInput.getText() , 20, 967));   //t is a placeholder score until
-        localStage.setTitle("Top Score Menu");                            //TODO: switch c and t variables to score getter methods
+        TopScoreMgr.submitSpeedScore(new TopScoreEntry(nameInput.getText() , SceneGameSpeed.numCorrect, SceneGameSpeed.time));
+        localStage.setTitle("Top Score Menu");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_TOPSCOREMENU));
         localStage.show();
+    }
+
+    public static void updatePlayerScore() {
+        playerScore.setText(Integer.toString(SceneGameSpeed.time));
     }
 }
