@@ -125,12 +125,18 @@ public class SceneGameSpeed
     }
     private void buttonClickNameChoice_1 (ActionEvent event)
     {
-        System.out.println("Choice 1");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Choice 1");
+        }
         if (currentTarget == targetDecoys.get(0)) {
-            System.out.println("CORRECT!");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("CORRECT!");
+            }
             numCorrect++;
         } else {
-            System.out.println("Nope");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Nope");
+            }
             numWrong++;
         }
         updateRunningTally();
@@ -138,12 +144,18 @@ public class SceneGameSpeed
     }
     private void buttonClickNameChoice_2 (ActionEvent event)
     {
-        System.out.println("Choice 2");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Choice 2");
+        }
         if (currentTarget == targetDecoys.get(1)) {
-            System.out.println("CORRECT!");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("CORRECT!");
+            }
             numCorrect++;
         } else {
-            System.out.println("Nope");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Nope");
+            }
             numWrong++;
         }
         updateRunningTally();
@@ -152,13 +164,19 @@ public class SceneGameSpeed
 
     private void buttonClickNameChoice_3 (ActionEvent event)
     {
-        System.out.println("Choice 3");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Choice 3");
+        }
 
         if (currentTarget == targetDecoys.get(2)) {
-            System.out.println("CORRECT!");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("CORRECT!");
+            }
             numCorrect++;
         } else {
-            System.out.println("Nope");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Nope");
+            }
             numWrong++;
         }
         updateRunningTally();
@@ -167,12 +185,18 @@ public class SceneGameSpeed
 
     private void buttonClickNameChoice_4 (ActionEvent event)
     {
-        System.out.println("Choice 4");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Choice 4");
+        }
         if (currentTarget == targetDecoys.get(3)) {
-            System.out.println("CORRECT!");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("CORRECT!");
+            }
             numCorrect++;
         } else {
-            System.out.println("Nope");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Nope");
+            }
             numWrong++;
         }
         updateRunningTally();
@@ -204,7 +228,9 @@ public class SceneGameSpeed
      */
     public void nextSet(ArrayList<Candidate> canList)
     {
-        System.out.println("Correct/Wrong: " + numCorrect + " / " + numWrong);
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Correct/Wrong: " + numCorrect + " / " + numWrong);
+        }
         targetDecoys = TargetMgr.getTargetDecoys(canList);
         currentTarget = targetDecoys.get(0);
 
@@ -246,7 +272,9 @@ public class SceneGameSpeed
         } else {
             endTime = System.currentTimeMillis();
             time = (int)((endTime - SceneReadyStartSpeed.initialTime) / 1000);
-            System.out.println("---------------" + time + "----------");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("---------------" + time + "----------");
+            }
             SceneResultsSpeed.updatePlayerScore();
             localStage.setTitle("Speed Results Screen");
             localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_RESULTSSPEED));

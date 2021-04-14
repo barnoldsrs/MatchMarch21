@@ -25,7 +25,9 @@ public class TopScoreMgr {
     public static void buildTopScoreList_SpeedFirstTime()
     {
         // Do makeCandidates() when creating the serialized file...
-        System.out.println("Starting TopScoreMgr.buildTopScoreList_SpeedFirstTime()...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Starting TopScoreMgr.buildTopScoreList_SpeedFirstTime()...");
+        }
         speedmodelist = new ArrayList<TopScoreEntry>();
 
         // Write the serialized ArrayList to a file
@@ -35,15 +37,21 @@ public class TopScoreMgr {
             os.writeObject(speedmodelist);
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("buildTopScoreList_SpeedFirstTime: Error writing Top Score Speed List to file.");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("buildTopScoreList_SpeedFirstTime: Error writing Top Score Speed List to file.");
+            }
         }
-        System.out.println("Finished with TopScoreMgr.buildTopScoreList_SpeedFirstTime()...  B'bye...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Finished with TopScoreMgr.buildTopScoreList_SpeedFirstTime()...  B'bye...");
+        }
     }
 
     public static void buildTopScoreList_TimedFirstTime()
     {
         // Do makeCandidates() when creating the serialized file...
-        System.out.println("Starting TopScoreMgr.bbuildTopScoreList_TimedFirstTime()...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Starting TopScoreMgr.bbuildTopScoreList_TimedFirstTime()...");
+        }
         timedmodelist = new ArrayList<TopScoreEntry>();
 
         // Write the serialized ArrayList to a file
@@ -53,9 +61,13 @@ public class TopScoreMgr {
             os.writeObject(timedmodelist);
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("buildTopScoreList_TimedFirstTime: Error writing Top Score Timed List to file.");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("buildTopScoreList_TimedFirstTime: Error writing Top Score Timed List to file.");
+            }
         }
-        System.out.println("Finished with TopScoreMgr.buildTopScoreList_TimedFirstTime()...  B'bye...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Finished with TopScoreMgr.buildTopScoreList_TimedFirstTime()...  B'bye...");
+        }
     }
 
     public static void initializeTopScoreLists(){
@@ -77,7 +89,9 @@ public class TopScoreMgr {
             speedmodelist = (ArrayList<TopScoreEntry>) one1;
 
             numElements = speedmodelist.size();
-            System.out.println("speedmodelist.size(): " + numElements);
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("speedmodelist.size(): " + numElements);
+            }
 
             // Print the list for sanity purposes...
             showList(speedmodelist);
@@ -85,9 +99,13 @@ public class TopScoreMgr {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("restoreTopScoreList_Speed(): Error in restoreTopScoreList_Speed().");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("restoreTopScoreList_Speed(): Error in restoreTopScoreList_Speed().");
+            }
         }
-        System.out.println("Done with restoreTopScoreList_Speed()...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Done with restoreTopScoreList_Speed()...");
+        }
 
     }
 
@@ -103,7 +121,9 @@ public class TopScoreMgr {
             timedmodelist = (ArrayList<TopScoreEntry>) one1;
 
             numElements = timedmodelist.size();
-            System.out.println("timedmodelist.size(): " + numElements);
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("timedmodelist.size(): " + numElements);
+            }
 
             // Print the list for sanity purposes...
             showList(timedmodelist);
@@ -111,9 +131,13 @@ public class TopScoreMgr {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("restoreTopScoreList_Timed(): Error in restoreTopScoreList_Timed().");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("restoreTopScoreList_Timed(): Error in restoreTopScoreList_Timed().");
+            }
         }
-        System.out.println("Done with restoreTopScoreList_Timed()...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Done with restoreTopScoreList_Timed()...");
+        }
 
     }
 
@@ -129,9 +153,13 @@ public class TopScoreMgr {
             os.writeObject(speedmodelist);
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("saveTopScoreList_Speed: Error writing Top Score Speed List to file.");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("saveTopScoreList_Speed: Error writing Top Score Speed List to file.");
+            }
         }
-        System.out.println("Finished with saveTopScoreList_Speed()...  B'bye...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Finished with saveTopScoreList_Speed()...  B'bye...");
+        }
     }
 
     public static void saveTopScoreList_Timed()
@@ -144,9 +172,13 @@ public class TopScoreMgr {
             os.writeObject(timedmodelist);
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("saveTopScoreList_Timed: Error writing Top Score Timed List to file.");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("saveTopScoreList_Timed: Error writing Top Score Timed List to file.");
+            }
         }
-        System.out.println("Finished with saveTopScoreList_Timed()...  B'bye...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Finished with saveTopScoreList_Timed()...  B'bye...");
+        }
     }
 
     public static void showList(ArrayList<TopScoreEntry> list)
@@ -165,7 +197,9 @@ public class TopScoreMgr {
 
                 return i;
             }
-            System.out.println("<-");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("<-");
+            }
         }
         return -1;
     }
@@ -174,7 +208,9 @@ public class TopScoreMgr {
     public static int newTimedScoreIndex(TopScoreEntry tes){
         for (int i = 0; i < 10; i++) {
             if(tes.getCount() > timedmodelist.get(i).getCount()){
-                System.out.println(i + "<-");
+                if(SceneMaker.isDebugging() == true) {
+                    System.out.println(i + "<-");
+                }
                 return i;
             }
         }
@@ -199,7 +235,9 @@ public class TopScoreMgr {
             }
             speedmodelist = templist;
         }else {
-            System.out.println("Not a worthy score");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Not a worthy score");
+            }
         }
     }
 
@@ -279,6 +317,6 @@ public class TopScoreMgr {
     public static void main(String[] args) {
         initializeTopScoreLists();
         testModifySpeedList();
-        System.out.println(newSpeedScoreIndex(new TopScoreEntry("Jerry", 20, 563)));
+
     }
 }

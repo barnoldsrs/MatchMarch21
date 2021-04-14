@@ -25,6 +25,8 @@ import java.util.ArrayList;
 
 public class SceneMaker extends Application
 {
+    //debugging on/off: when off cleans up terminal so less is printed except start up and closing commentary
+    private static boolean debugging = false;
     /*
      * Scenes we need for this application
      */
@@ -182,5 +184,10 @@ public class SceneMaker extends Application
         // Show the Stage (window)
         stage.show();
     }
+
+    public static boolean isDebugging(){
+        return debugging;
+    }
+
   
 }

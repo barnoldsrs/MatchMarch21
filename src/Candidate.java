@@ -80,7 +80,9 @@ public class Candidate implements Serializable
     {
         try {
 
-            System.out.println(imageName);
+            if (SceneMaker.isDebugging() == true) {
+                System.out.println(imageName);
+            }
 
 //          this.canImage = new Image(new FileInputStream(getClass().getClassLoader().getResourceAsStream(openName)));
 //          this.canImage = new Image(new FileInputStream(getClass().getClassLoader().getResourceAsStream(imageName)));

@@ -29,14 +29,18 @@ public class CandidateMgr
      */
     public static void main(String[] args)
     {
-        // Do makeCandidates() when creating the serialized file...
-        System.out.println("Starting CandidateSet.main()...");
-        makeCandidates();
+        if(SceneMaker.isDebugging() == true ) {
+            // Do makeCandidates() when creating the serialized file...
+            System.out.println("Starting CandidateSet.main()...");
+        }
+            makeCandidates();
 
-        // Do restoreCandidates when testing rebuilding from serialized file...
-        //System.out.println("Starting restoreCandidates()...");
-        //restoreCandidates();
-        System.out.println("Finished with CandidateSet.main().  B'bye...");
+            // Do restoreCandidates when testing rebuilding from serialized file...
+            //System.out.println("Starting restoreCandidates()...");
+            //restoreCandidates();
+        if(SceneMaker.isDebugging() == true){
+            System.out.println("Finished with CandidateSet.main().  B'bye...");
+        }
     }
 
     /*
@@ -72,18 +76,24 @@ public class CandidateMgr
     public static void makeCandidates()
     {
 
+
         int numCandidates = CanNames.getNumNames();
-        System.out.println("Debug:" + numCandidates);
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Debug:" + numCandidates);
+        }
 
         candSet1 = new ArrayList<Candidate>();
-        for (int i=0; i<numCandidates; i++)
-        {
+        for (int i=0; i<numCandidates; i++) {
             // get the names of a Candidate from the CanNames class
             String[] cCand = CanNames.getCandInfo(i);
 
             // Create and add a Candidate to the list
             candSet1.add(new Candidate(cCand[0], cCand[1], cCand[2], cCand[3]));
-            System.out.println(candSet1.get(i));
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println(candSet1.get(i));
+            }
+
+
         }
 
 
@@ -106,9 +116,13 @@ public class CandidateMgr
             os.writeObject(candSet1);
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("makeCandidates(): Error writing candidate set file.");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("makeCandidates(): Error writing candidate set file.");
+            }
         }
-        System.out.println("Done with makeCandidates()...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Done with makeCandidates()...");
+        }
     }
 
     /*
@@ -126,10 +140,14 @@ public class CandidateMgr
             FileInputStream fileStream = new FileInputStream(CAND_SET_FILE_NAME);
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-            System.out.println("checkForCandidateFile: Could not open candidate set file");
-            System.out.println("Attempting to create it...");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("checkForCandidateFile: Could not open candidate set file");
+                System.out.println("Attempting to create it...");
+            }
             makeCandidates();
-            System.out.println("Done preparing candidate file...");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Done preparing candidate file...");
+            }
         }
 
 
@@ -154,15 +172,17 @@ public class CandidateMgr
 
             restoredCandSet1 = (ArrayList<Candidate>) one1;
             numElements = restoredCandSet1.size();
-            System.out.println("restoredCandSet1 length: " + numElements);
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("restoredCandSet1 length: " + numElements);
 
-            // Print the list for sanity purposes...
-            System.out.println("Restored List...");
-            for (int i=0; i<numElements; i++)
-            {
-                System.out.println(restoredCandSet1.get(i));
+                // Print the list for sanity purposes...
+                System.out.println("Restored List...");
+
+                for (int i = 0; i < numElements; i++) {
+                    System.out.println(restoredCandSet1.get(i));
+                }
+                System.out.println("Restoring Candidate images...");
             }
-            System.out.println("Restoring Candidate images...");
             for (int i=0; i<numElements; i++)
             {
                 restoredCandSet1.get(i).setImage();
@@ -170,9 +190,13 @@ public class CandidateMgr
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("restoreCandidates(): Error in restoreCandidates().");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("restoreCandidates(): Error in restoreCandidates().");
+            }
         }
-        System.out.println("Done with restoreCandidates()...");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Done with restoreCandidates()...");
+        }
 
     }
 }
