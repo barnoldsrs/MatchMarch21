@@ -129,6 +129,7 @@ public class SceneMaker extends Application
        // Game, timed mode
        SceneGameTimed sceneObjGameTimed = new SceneGameTimed(stage);
        sceneTimedGame = sceneObjGameTimed.getScene();
+       sceneObjGameTimed.initializeTargetCans(canList);
 
        // ReadyStart before timed gameplay
         SceneReadyStartTimed sceneObjReadyStartTimed = new SceneReadyStartTimed(stage);
