@@ -17,9 +17,8 @@ public class SceneTopScoreMenu
 {
     private Label myLabelTopScore_1         = new Label("Top Score Menu");   
     private Scene topScoreMenuScene;
-    private Stage localStage;
-    private Label[] leaderBoard;   
-    
+    private static Stage localStage;
+    private static Label[] leaderBoard = new Label[TopScoreMgr.TOPSCORE_MAX_ENTRIES];
     
     
     private String[] top10Speed = {"Flynn 00:10.34","Nathan 00:10.89","Jill 00:15.78","Kate 00:19.25","Harold 00:23.45",
@@ -32,11 +31,8 @@ public class SceneTopScoreMenu
     
     public SceneTopScoreMenu(Stage stage)
     {
-        leaderBoard = new Label[10];
         localStage = stage;
         topScoreMenuScene = makeSceneTopScore();
-
-
     }
     
     public Scene getScene()
@@ -103,12 +99,14 @@ public class SceneTopScoreMenu
         buttonToShuffleMode.setOnAction(this::buttonClickToShuffleMode);
 
 
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++){
             leaderBoard[i] = new Label();
         }
 
+        // TODO: FIXME: Need better way to align max number
+        //              of entries with layout arithmetic
         for (int i = 0; i < 2; i++){
-            for (int j = 0; j < 5; j++){
+            for (int j = 0; j < TopScoreMgr.TOPSCORE_MAX_ENTRIES / 2; j++){
                 //System.out.println(c + " " + i + " " +j);
                 pane.add(leaderBoard[c],i,j);
                 c++;
@@ -143,31 +141,45 @@ public class SceneTopScoreMenu
         if(showingSpeed == true){
             populateLabelsTimed();
             showingSpeed = false;
-        } else if (!showingSpeed){
+        } else {
             populateLabelsSpeed();
             showingSpeed = true;
-        }          
-
+        }
     }    
- 
 
-    public void populateLabelsSpeed(){
+
+    public static void populateLabelsSpeed(){
         localStage.setTitle("Top 10 Speed Mode Scores");
 
-        for(int i = 0; i < 10; i++){
-            leaderBoard[i].setText(i+1 + ". " + TopScoreMgr.getSpeedEntry(i).getName()
+        // The top score list may not have all ten entries.  Fill what we can,
+        // then insert a placeholder for the rest.
+        int numElements = TopScoreMgr.getSpeedmodelist().size();
+        for(int i = 0; i < numElements; i++) {
+            leaderBoard[i].setText(i + 1 + ". " + TopScoreMgr.getSpeedEntry(i).getName()
                     + " " + TopScoreMgr.getSpeedEntry(i).getTime());
-        }    
+        }
+
+        for(int i = numElements; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++) {
+            leaderBoard[i].setText(i + 1 + ". " + "<empty>");
+        }
+
     }
 
     public void populateLabelsTimed(){
         localStage.setTitle("Top 10 Timed Mode Scores");
 
-        
-        for(int i = 0; i < 10; i++){
-            leaderBoard[i].setText(i+1 + ". " + TopScoreMgr.getTimedEntry(i).getName()
-                    + " " + TopScoreMgr.getTimedEntry(i).getCount());
-        }        
+        // The top score list may not have all ten entries.  Fill what we can,
+        // then insert a space as a placeholder for the rest.
+        int numElements = TopScoreMgr.getTimedmodelist().size();
+        for(int i = 0; i < numElements; i++) {
+            leaderBoard[i].setText(i + 1 + ". " + TopScoreMgr.getTimedEntry(i).getName()
+                    + " " + TopScoreMgr.getTimedEntry(i).getTime());
+        }
+
+        for(int i = numElements; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++) {
+            leaderBoard[i].setText(i + 1 + ". " + "<empty>");
+        }
+
     }
     
 /*

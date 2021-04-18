@@ -41,8 +41,8 @@ public class SceneMgr
     
     
     
-    
-    private static Scene[] sceneList = new Scene[14];
+    // Giving a few extra slots
+    private static Scene[] sceneList = new Scene[IDX_LASTINDEX + 5];
     
     public static Scene getScene(int index)
     {

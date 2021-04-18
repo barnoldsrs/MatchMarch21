@@ -31,8 +31,6 @@ public class SceneMaker extends Application
     private Scene sceneMainMenu;
     private Scene sceneSplash;
     private Scene sceneTopScore;
-    //private Scene sceneTopScoreSpeed;
-    //private Scene sceneTopScoreTimed;
     private Scene sceneSelectGame;
     private Scene sceneSpeedGame;
     private Scene sceneTimedGame;
@@ -67,11 +65,19 @@ public class SceneMaker extends Application
         System.out.println("Version: " + versionInfo);
         System.out.println("About: " + aboutInfo);
 
-        topScoreMgr = new TopScoreMgr();
-       topScoreMgr.initializeTopScoreLists();
+        /*
+         * Build and display Splash screen first, then start setting up
+         * everything else.
+         */
+        SplashScene sceneObjSplashScene = new SplashScene(stage);
+        sceneSplash = sceneObjSplashScene.getScene();
+        SceneMgr.setScene(SceneMgr.IDX_SPLASH, sceneSplash);
 
-       topScoreMgr.testModifySpeedList();
-       topScoreMgr.testModifyTimedList();
+        // Set the title and scene for the first screen to be visible
+        stage.setTitle("NameGame");
+        stage.setScene(sceneSplash);
+        stage.show();
+
 
         /*
          * Make sure CandidateSet file exists.  If it doesn't, create it.
@@ -83,26 +89,33 @@ public class SceneMaker extends Application
         canList = CandidateMgr.getCanList();
 
         /*
-         * Create Scenes ahead of time
+         * Make sure the TopScore files (speed and timed) exist.
+         * If they don't, create them.
+         * Open the files and load the contents.
          */
+        topScoreMgr = new TopScoreMgr();
+        topScoreMgr.initializeTopScoreLists();
+
+       /*
+        * Used for testing by inserting dummy values.  Leave commented unless testing
+        * startup sequence.
+        topScoreMgr.testModifySpeedList();
+        topScoreMgr.testModifyTimedList();
+        */
+
+
+        /*
+         * Create the rest of the game's Scenes ahead of time
+         */
+
         // Main menu
        SceneMainMenu sceneObjMainMenu = new SceneMainMenu(stage);
        sceneMainMenu = sceneObjMainMenu.getScene();
 
-       SplashScene sceneObjSplashScene = new SplashScene(stage);
-       sceneSplash = sceneObjSplashScene.getScene();
        
        // Top score menu
        SceneTopScoreMenu sceneObjTopScoreMenu = new SceneTopScoreMenu(stage);
        sceneTopScore = sceneObjTopScoreMenu.getScene();
-       
-       // Top score speed
-       //SceneTopScoreSpeed sceneObjTopScoreSpeed = new SceneTopScoreSpeed(stage);
-       //sceneTopScoreSpeed = sceneObjTopScoreSpeed.getScene();
-       
-       // Top score timed
-       //SceneTopScoreTimed sceneObjTopScoreTimed = new SceneTopScoreTimed(stage);
-       //sceneTopScoreTimed = sceneObjTopScoreTimed.getScene();
        
        // Select game
        SceneSelectGame sceneObjSelectGame = new SceneSelectGame(stage);
@@ -137,27 +150,25 @@ public class SceneMaker extends Application
        SceneBbye sceneObjBbye = new SceneBbye(stage);
        sceneBbye = sceneObjBbye.getScene();
        
-     
-       SceneMgr.setScene(SceneMgr.IDX_SPLASH,          sceneSplash);
+
        SceneMgr.setScene(SceneMgr.IDX_MAINMENU,         sceneMainMenu);
        SceneMgr.setScene(SceneMgr.IDX_MAINMENU,         sceneMainMenu);
        SceneMgr.setScene(SceneMgr.IDX_TOPSCOREMENU,     sceneTopScore);
-       //SceneMgr.setScene(SceneMgr.IDX_TOPSCORESPEED,    sceneTopScoreSpeed);
-       //SceneMgr.setScene(SceneMgr.IDX_TOPSCORETIMED,    sceneTopScoreTimed);
        SceneMgr.setScene(SceneMgr.IDX_SELECTGAME,       sceneSelectGame);
        SceneMgr.setScene(SceneMgr.IDX_GAMESPEED,        sceneSpeedGame);
        SceneMgr.setScene(SceneMgr.IDX_GAMETIMED,        sceneTimedGame);
-        SceneMgr.setScene(SceneMgr.IDX_READYSTARTTIMED, sceneReadyStartTimed);
-        SceneMgr.setScene(SceneMgr.IDX_READYSTARTSPEED, sceneReadyStartSpeed);
-        SceneMgr.setScene(SceneMgr.IDX_RESULTSSPEED,    sceneResultsSpeed);
-        SceneMgr.setScene(SceneMgr.IDX_RESULTSTIMED,    sceneResultsTimed);
+       SceneMgr.setScene(SceneMgr.IDX_READYSTARTTIMED,  sceneReadyStartTimed);
+       SceneMgr.setScene(SceneMgr.IDX_READYSTARTSPEED,  sceneReadyStartSpeed);
+       SceneMgr.setScene(SceneMgr.IDX_RESULTSSPEED,     sceneResultsSpeed);
+       SceneMgr.setScene(SceneMgr.IDX_RESULTSTIMED,     sceneResultsTimed);
        SceneMgr.setScene(SceneMgr.IDX_BBYE,             sceneBbye);
        
 
-        // Set the title and scene for the first screen to be visible
-        stage.setTitle("Start");
-        stage.setScene(sceneSplash);
 
+        /*
+         * Delay getting to the Main Menu; let the Splash screen sit there for
+         * at least 2 seconds.
+         */
         Task<Void> sleeper = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -179,7 +190,10 @@ public class SceneMaker extends Application
         });
         new Thread(sleeper).start();
 
-        // Show the Stage (window)
+        /*
+         * Ready to Go!
+         * Show the Stage (window)
+         */
         stage.show();
     }
   

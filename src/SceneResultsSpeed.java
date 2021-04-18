@@ -70,7 +70,8 @@ public class SceneResultsSpeed {
 
     private void buttonClickToSubmitScore(ActionEvent event) {
         TopScoreMgr.submitSpeedScore(new TopScoreEntry(nameInput.getText() , SceneGameSpeed.numCorrect, SceneGameSpeed.time));
-        localStage.setTitle("Top Score Menu");
+        SceneTopScoreMenu.populateLabelsSpeed();
+        localStage.setTitle("Top 10 Speed Mode Scores");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_TOPSCOREMENU));
         localStage.show();
     }

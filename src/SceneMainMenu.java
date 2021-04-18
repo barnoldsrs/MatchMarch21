@@ -66,7 +66,7 @@ public class SceneMainMenu
     
     private void buttonClickToTopScoreMenu(ActionEvent event)
     {
-       localStage.setTitle("Top Score Menu");
+       localStage.setTitle("Top 10 Speed Mode Scores");
        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_TOPSCOREMENU));
        localStage.show();
 

@@ -21,17 +21,17 @@ import java.util.Collections;
 public class SceneGameSpeed
 {
     private Label myLabelGameSpeed_1       = new Label("Game - Speed");
-    private Label labelRunningTally             = new Label("01234567891234");
+    private static Label labelRunningTally = new Label("01234567891234");
     private Scene gameSpeedScene;
-    private Stage localStage;
+    private static Stage localStage;
 
     static Button nameChoices[];
     static ArrayList<Candidate> targetDecoys;   // list of one target, N decoy Candidates
     static Candidate currentTarget = null;      // Which on the screen is the target Candidate right now?
     static ArrayList<Candidate> canList;    // The entire list of Candidates
-    ImageView imagePerson;                  // Reference to the image shown on the screen
-    boolean firstTime = true;
-    boolean firstTimePerson = true;
+    static ImageView imagePerson;                  // Reference to the image shown on the screen
+    static boolean firstTime = true;
+    static boolean firstTimePerson = true;
     static int currentSet = 0;                  // which set of the game are we on?
     static int numCorrect = 0;                    // overall counts
     static int numWrong = 0;                      // overall counts
@@ -39,7 +39,7 @@ public class SceneGameSpeed
     static int time = 0;                        //time it takes to answer twenty correct questions
     static int winCondition = 3;
 
-    GridPane pane;
+    static GridPane pane;
 
     public SceneGameSpeed(Stage stage)
     {
@@ -188,7 +188,7 @@ public class SceneGameSpeed
      * populateButtons()
      * Shuffle the list of target and decoys, so that the names will be in random order.
      */
-    private void populateButtons(Button[] bs, ArrayList<Candidate> targsDecs)
+    private static void populateButtons(Button[] bs, ArrayList<Candidate> targsDecs)
     {
         Collections.shuffle(targsDecs);
 
@@ -202,7 +202,7 @@ public class SceneGameSpeed
      * nextSet()
      * Get another set of one target and N decoys in a list.
      */
-    public void nextSet(ArrayList<Candidate> canList)
+    public static void nextSet(ArrayList<Candidate> canList)
     {
         System.out.println("Correct/Wrong: " + numCorrect + " / " + numWrong);
         targetDecoys = TargetMgr.getTargetDecoys(canList);
@@ -238,7 +238,7 @@ public class SceneGameSpeed
 
     }
 
-    private void updateRunningTally()
+    private static void updateRunningTally()
     {
         if(numCorrect < winCondition) {
             String sTally = "Correct: " + numCorrect + "; Wrong: " + numWrong;
@@ -254,7 +254,7 @@ public class SceneGameSpeed
         }
     }
 
-    public void resetSpeedGame()
+    public static void resetSpeedGame()
     {
         numCorrect = 0;
         numWrong = 0;

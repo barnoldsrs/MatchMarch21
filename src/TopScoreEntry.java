@@ -1,4 +1,6 @@
-public class TopScoreEntry {
+import java.io.Serializable;
+
+public class TopScoreEntry implements Serializable {
 
     private String name = null; //Name of user entering score
     private int count = -1; //number of questions the got through in their run
