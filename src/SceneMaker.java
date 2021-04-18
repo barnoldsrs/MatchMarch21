@@ -74,7 +74,7 @@ public class SceneMaker extends Application
         SceneMgr.setScene(SceneMgr.IDX_SPLASH, sceneSplash);
 
         // Set the title and scene for the first screen to be visible
-        stage.setTitle("NameGame");
+        stage.setTitle("Name Game");
         stage.setScene(sceneSplash);
         stage.show();
 
@@ -185,6 +185,7 @@ public class SceneMaker extends Application
         sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
+                localStage.setTitle("Name Game");
                 localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_MAINMENU));
 
             }

@@ -16,7 +16,7 @@ public class SceneResultsTimed {
     TextField nameInput;
 
     public SceneResultsTimed(Stage stage){
-        readyStartScene = makeSceneReadyStart();
+        readyStartScene = makeSceneResultsTimed();
         localStage = stage;
     }
 
@@ -25,7 +25,7 @@ public class SceneResultsTimed {
         return readyStartScene;
     }
 
-    private Scene makeSceneReadyStart(){
+    private Scene makeSceneResultsTimed(){
         // new gridpane
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10, 10, 10, 10));
@@ -63,8 +63,9 @@ public class SceneResultsTimed {
     }
 
     private void buttonClickToSubmitScore(ActionEvent event) {
-        TopScoreMgr.submitTimedScore(new TopScoreEntry(nameInput.getText() , 20, 967));   //t is a placeholder score until
-        localStage.setTitle("Top Score Menu");
+        TopScoreMgr.submitTimedScore(new TopScoreEntry(nameInput.getText() , SceneGameTimed.numCorrect, SceneGameTimed.time));
+        SceneTopScoreMenu.populateLabelsTimed(true);
+        localStage.setTitle("Top 10 Timed Mode Scores");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_TOPSCOREMENU));
         localStage.show();
     }

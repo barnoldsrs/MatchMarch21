@@ -23,17 +23,17 @@ import java.util.Collections;
 public class SceneGameTimed
 {
     private Label myLabelGameTimed_1       = new Label("Game - Timed");
-    private Label labelRunningTally             = new Label("01234567891234");
+    private static Label labelRunningTally             = new Label("01234567891234");
     private Scene gameTimedScene;
-    private Stage localStage;
+    private static Stage localStage;
 
     static Button nameChoices[];
     static ArrayList<Candidate> targetDecoys;   // list of one target, N decoy Candidates
     static Candidate currentTarget = null;      // Which on the screen is the target Candidate right now?
     static ArrayList<Candidate> canList;    // The entire list of Candidates
-    ImageView imagePerson;                  // Reference to the image shown on the screen
-    boolean firstTime = true;
-    boolean firstTimePerson = true;
+    static ImageView imagePerson;                  // Reference to the image shown on the screen
+    static boolean firstTime = true;
+    static boolean firstTimePerson = true;
     static int currentSet = 0;                  // which set of the game are we on?
     static int numCorrect = 0;                    // overall counts
     static int numWrong = 0;                      // overall counts

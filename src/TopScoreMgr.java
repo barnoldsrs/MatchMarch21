@@ -208,6 +208,25 @@ public class TopScoreMgr {
         return -1;
     }
 
+
+    /*
+     * For timed mode find the worst count (lowest count) currently in
+     * the list.
+     */
+    public static long getTimedLowestCount()
+    {
+        int lowestCount = Integer.MAX_VALUE;
+        if (timedmodelist != null) {
+            for (TopScoreEntry entry : timedmodelist) {
+                if (entry.getCount() < lowestCount) {
+                    lowestCount = entry.getCount();
+                }
+            }
+        }
+        return lowestCount;
+    }
+
+
     /*
      * For speed mode find the worst time (longest time) currently in
      * the list.
@@ -248,7 +267,7 @@ public class TopScoreMgr {
      *  findInsertTimedScore(), when integrating with timed mode code.
      *
      */
-    public static void submitTimedScore(TopScoreEntry tse){
+    public static void OLDsubmitTimedScore(TopScoreEntry tse){
         ArrayList<TopScoreEntry> templist = timedmodelist;
 
         if(newTimedScoreIndex(tse) != -1){
@@ -264,6 +283,51 @@ public class TopScoreMgr {
     }
 
 
+    /*
+     * submitTimedScore()
+     * validates and qualifies potential candidate to be added to the
+     * top score list.
+     * Manages the list contents so list is sorted from high count at the
+     * front, in descending order.
+     * Manages the list so that it (upon leaving this method), is not larger
+     * than the maximum size of the top score list.
+     * Must use getTimedLowestCount() method.
+     * Must use the findInsertIndexTimed() method.
+     * Returns nothing.
+     */
+    public static void submitTimedScore(TopScoreEntry tse){
+        int indexToInsert;
+        int userThisCount = tse.getCount();
+
+        if (timedmodelist.size() >= TOPSCORE_MAX_ENTRIES) {
+            if(userThisCount < getTimedLowestCount()){
+                /*
+                 * Don't even bother.  The list is full and all entries
+                 * are better than this one.
+                 */
+                System.out.println("This count was too low to make it on the Top 10 List...");
+            } else {
+                // find the right index and insert it
+                indexToInsert = findInsertIndexTimed(userThisCount);
+                timedmodelist.add(indexToInsert, tse);
+            }
+        } else
+        {
+            indexToInsert = findInsertIndexTimed(userThisCount);
+            timedmodelist.add(indexToInsert, tse);
+        }
+
+        /*
+         * If we just made the list too big, remove the longest time (last) entry to keep
+         * the size to TOPSCORE_MAX_ENTRIES, maximum,
+         */
+        if (timedmodelist.size() > TOPSCORE_MAX_ENTRIES)
+        {
+            timedmodelist.remove(TOPSCORE_MAX_ENTRIES); // remove the last one
+        }
+
+        saveTopScoreList_Timed();
+    }
 
     /*
      * submitSpeedScore()
@@ -273,9 +337,9 @@ public class TopScoreMgr {
      * front, in descending order.
      * Manages the list so that it (upon leaving this method), is not larger
      * than the maximum size of the top score list.
-     * Must use getLowestScore() method (to be implemented).
-     * Must use the findInsertIndex() method (to be implemented).
-     * Returns nothing
+     * Must use getSpeedHighestTime() method to find worst entry in top score list.
+     * Must use the findInsertIndexSpeed() method.
+     * Returns nothing.
      */
     public static void submitSpeedScore(TopScoreEntry tse){
         // uses speedmodelist;
@@ -311,6 +375,47 @@ public class TopScoreMgr {
 
         saveTopScoreList_Speed();
     }
+
+    /*
+     * findInsertIndexTimed()
+     * Returns the index into the timed mode top 10 list where this
+     * particular count should go.
+     * Higher numbers mean higher count (better score), and those are at the front
+     * of the list.
+     *
+     * userThisCount is the count scored by the user this most recent
+     * play.
+     */
+    private static int findInsertIndexTimed(int userThisCount)
+    {
+        int returnIndex = -1;
+
+        /*
+         * if the list is empty (this is the first one in the list),
+         * it should go at index 0.
+         */
+        if (timedmodelist.size() == 0) {
+            returnIndex = 0;
+        } else {
+            int index = 0;
+
+            /*
+             *
+             */
+            while(index < timedmodelist.size()) {
+                if (userThisCount > timedmodelist.get(index).getCount())
+                {
+                    return (index);
+                }
+                index++;
+            }
+            returnIndex = index;
+        }
+        return returnIndex;
+    }
+
+
+
 
     /*
      * findInsertIndexSpeed()
