@@ -56,6 +56,7 @@ public class SceneReadyStartSpeed {
     }
 
     private void buttonClickToStartGame(ActionEvent event) {
+        initialTime = System.currentTimeMillis();   // beginning of elapsed time
         localStage.setTitle("Speed Mode Game");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_GAMESPEED));
         localStage.show();

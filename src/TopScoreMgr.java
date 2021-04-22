@@ -1,15 +1,14 @@
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class TopScoreMgr {
-    private  static ArrayList<TopScoreEntry> speedmodelist;
-    private static ArrayList<TopScoreEntry> timedmodelist;
+    private static ArrayList<TopScoreEntry> speedmodelist = new ArrayList<TopScoreEntry>();
+    private static ArrayList<TopScoreEntry> timedmodelist = new ArrayList<TopScoreEntry>();
 
     private static final String SPEED_LIST_FILENAME = "TopScoreListSpeed.ser";
     private static final String TIMED_LIST_FILENAME = "TopScoreListTimed.ser";
+
+    public static final int TOPSCORE_MAX_ENTRIES = 10;
 
     public TopScoreMgr(ArrayList<TopScoreEntry> S, ArrayList<TopScoreEntry> T){
         speedmodelist = S;
@@ -71,8 +70,43 @@ public class TopScoreMgr {
     }
 
     public static void initializeTopScoreLists(){
-        buildTopScoreList_SpeedFirstTime();
-        buildTopScoreList_TimedFirstTime();
+        checkForTopScoreFiles();
+        restoreTopScoreList_Speed();
+        restoreTopScoreList_Timed();
+    }
+
+    /*
+     * checkForTopScoreFiles()
+     * Check to see if the ctop score files are present.
+     * If they're not present, create them from scratch.
+     */
+    public static void checkForTopScoreFiles()
+    {
+        /*
+         * Is the Speed List file present?  If not, create it.
+         */
+        try {
+            FileInputStream fileStream = new FileInputStream(SPEED_LIST_FILENAME);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+            System.out.println("checkForTopScoreFiles: Could not open Speed List file");
+            System.out.println("Attempting to create it...");
+            buildTopScoreList_SpeedFirstTime();
+            System.out.println("Done preparing Speed List file...");
+        }
+
+        /*
+         * Is the Timed List file present?  If not, create it.
+         */
+        try {
+            FileInputStream fileStream = new FileInputStream(TIMED_LIST_FILENAME);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+            System.out.println("checkForTopScoreFiles: Could not open Timed List file");
+            System.out.println("Attempting to create it...");
+            buildTopScoreList_TimedFirstTime();
+            System.out.println("Done preparing Timed List file...");
+        }
     }
 
     ////////////////////////////////Restore Methods////////////////////////////////////////////
@@ -190,9 +224,13 @@ public class TopScoreMgr {
         }
     }
 
-    //Checks if score is valid for being entered into the top 10 scores and returns the index of where it should go
+    /*
+     * Checks if score is valid for being entered into the
+     * top 10 scores and returns the index of where it should go.
+     * Returns -1 if the entry doesn't belong in the top 10 list
+     */
     public static int newSpeedScoreIndex(TopScoreEntry tes){
-        for (int i = 0; i < 10; i--) {
+        for (int i = 0; i < speedmodelist.size(); i++) {
             if(tes.getTime() < speedmodelist.get(i).getTime()){
 
                 return i;
@@ -204,9 +242,49 @@ public class TopScoreMgr {
         return -1;
     }
 
-    //Checks if score is valid for being entered into the top 10 scores and returns the index of where it should go
+
+    /*
+     * For timed mode find the worst count (lowest count) currently in
+     * the list.
+     */
+    public static long getTimedLowestCount()
+    {
+        int lowestCount = Integer.MAX_VALUE;
+        if (timedmodelist != null) {
+            for (TopScoreEntry entry : timedmodelist) {
+                if (entry.getCount() < lowestCount) {
+                    lowestCount = entry.getCount();
+                }
+            }
+        }
+        return lowestCount;
+    }
+
+
+    /*
+     * For speed mode find the worst time (longest time) currently in
+     * the list.
+     */
+    public static long getSpeedHighestTime()
+    {
+        long highestTime = 0L;
+        if (speedmodelist != null) {
+            for (TopScoreEntry entry : speedmodelist) {
+                if (entry.getTime() > highestTime) {
+                    highestTime = entry.getTime();
+                }
+            }
+        }
+        return highestTime;
+    }
+
+    /*
+     * For timed mode, checks if score is valid for being entered into
+     * the top 10 scores and returns the index of where it should go.
+     * Returns -1 if the entry doesn't belong in the top 10 list.
+     */
     public static int newTimedScoreIndex(TopScoreEntry tes){
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < TOPSCORE_MAX_ENTRIES; i++) {
             if(tes.getCount() > timedmodelist.get(i).getCount()){
                 if(SceneMaker.isDebugging() == true) {
                     System.out.println(i + "<-");
@@ -217,38 +295,20 @@ public class TopScoreMgr {
         return -1;
     }
 
-    //tests if the score can be add and if it can i will shift the scores accordingly
-    //and inserts the new score where it should be
-    public static void submitSpeedScore(TopScoreEntry tse){
-        ArrayList<TopScoreEntry> templist = speedmodelist;
-
-        if(newSpeedScoreIndex(tse) != -1){
-            for(int i = 0; i < newSpeedScoreIndex(tse); i++){
-                templist.set(i, speedmodelist.get(i));
-                //System.out.println(i);
-            }
-            templist.set(newSpeedScoreIndex(tse),speedmodelist.get(newSpeedScoreIndex(tse)));
-            for(int i = newSpeedScoreIndex(tse)+1; i < speedmodelist.size(); i++){
-
-                templist.set(i, speedmodelist.get(i-1));
-                //System.out.println(i);
-            }
-            speedmodelist = templist;
-        }else {
-            if(SceneMaker.isDebugging() == true) {
-                System.out.println("Not a worthy score");
-            }
-        }
-    }
 
     //tests if the score can be add and if it can i will shift the scores accordingly
     //and inserts the new score where it should be
-    public static void submitTimedScore(TopScoreEntry tse){
+    /*
+     * TODO: FIXME: Old style of list to be replaced with
+     *  findInsertTimedScore(), when integrating with timed mode code.
+     *
+     */
+    public static void OLDsubmitTimedScore(TopScoreEntry tse){
         ArrayList<TopScoreEntry> templist = timedmodelist;
 
         if(newTimedScoreIndex(tse) != -1){
             for(int i = 0; i < newTimedScoreIndex(tse); i++){
-                templist.set(i ,timedmodelist.get(i));
+                templist.set(i, timedmodelist.get(i));
             }
             templist.set(newTimedScoreIndex(tse), timedmodelist.get(newTimedScoreIndex(tse)));
             for(int i = newTimedScoreIndex(tse)+1; i < timedmodelist.size(); i++){
@@ -257,6 +317,184 @@ public class TopScoreMgr {
             timedmodelist = templist;
         }
     }
+
+
+    /*
+     * submitTimedScore()
+     * validates and qualifies potential candidate to be added to the
+     * top score list.
+     * Manages the list contents so list is sorted from high count at the
+     * front, in descending order.
+     * Manages the list so that it (upon leaving this method), is not larger
+     * than the maximum size of the top score list.
+     * Must use getTimedLowestCount() method.
+     * Must use the findInsertIndexTimed() method.
+     * Returns nothing.
+     */
+    public static void submitTimedScore(TopScoreEntry tse){
+        int indexToInsert;
+        int userThisCount = tse.getCount();
+
+        if (timedmodelist.size() >= TOPSCORE_MAX_ENTRIES) {
+            if(userThisCount < getTimedLowestCount()){
+                /*
+                 * Don't even bother.  The list is full and all entries
+                 * are better than this one.
+                 */
+                System.out.println("This count was too low to make it on the Top 10 List...");
+            } else {
+                // find the right index and insert it
+                indexToInsert = findInsertIndexTimed(userThisCount);
+                timedmodelist.add(indexToInsert, tse);
+            }
+        } else
+        {
+            indexToInsert = findInsertIndexTimed(userThisCount);
+            timedmodelist.add(indexToInsert, tse);
+        }
+
+        /*
+         * If we just made the list too big, remove the longest time (last) entry to keep
+         * the size to TOPSCORE_MAX_ENTRIES, maximum,
+         */
+        if (timedmodelist.size() > TOPSCORE_MAX_ENTRIES)
+        {
+            timedmodelist.remove(TOPSCORE_MAX_ENTRIES); // remove the last one
+        }
+
+        saveTopScoreList_Timed();
+    }
+
+    /*
+     * submitSpeedScore()
+     * validates and qualifies potential candidate to be added to the
+     * top score list.
+     * Manages the list contents so list is sorted from high score at the
+     * front, in descending order.
+     * Manages the list so that it (upon leaving this method), is not larger
+     * than the maximum size of the top score list.
+     * Must use getSpeedHighestTime() method to find worst entry in top score list.
+     * Must use the findInsertIndexSpeed() method.
+     * Returns nothing.
+     */
+    public static void submitSpeedScore(TopScoreEntry tse){
+        // uses speedmodelist;
+        int indexToInsert;
+        long newTime = tse.getTime();
+
+        if (speedmodelist.size() >= TOPSCORE_MAX_ENTRIES) {
+            if ((newTime > getSpeedHighestTime())) {
+                /*
+                 * Don't even bother.  The list is full and all entries
+                 * are better than this one.
+                 */
+                System.out.println("This time was too slow to make it on the Top 10 List...");
+            } else {
+                // find the right index and insert it
+                indexToInsert = findInsertIndexSpeed(newTime);
+                speedmodelist.add(indexToInsert, tse);
+            }
+        } else
+        {
+            indexToInsert = findInsertIndexSpeed(newTime);
+            speedmodelist.add(indexToInsert, tse);
+        }
+
+        /*
+         * If we just made the list too big, remove the longest time (last) entry to keep
+         * the size to TOPSCORE_MAX_ENTRIES, maximum,
+         */
+        if (speedmodelist.size() > TOPSCORE_MAX_ENTRIES)
+        {
+            speedmodelist.remove(TOPSCORE_MAX_ENTRIES); // remove the last one
+        }
+
+        saveTopScoreList_Speed();
+    }
+
+    /*
+     * findInsertIndexTimed()
+     * Returns the index into the timed mode top 10 list where this
+     * particular count should go.
+     * Higher numbers mean higher count (better score), and those are at the front
+     * of the list.
+     *
+     * userThisCount is the count scored by the user this most recent
+     * play.
+     */
+    private static int findInsertIndexTimed(int userThisCount)
+    {
+        int returnIndex = -1;
+
+        /*
+         * if the list is empty (this is the first one in the list),
+         * it should go at index 0.
+         */
+        if (timedmodelist.size() == 0) {
+            returnIndex = 0;
+        } else {
+            int index = 0;
+
+            /*
+             *
+             */
+            while(index < timedmodelist.size()) {
+                if (userThisCount > timedmodelist.get(index).getCount())
+                {
+                    return (index);
+                }
+                index++;
+            }
+            returnIndex = index;
+        }
+        return returnIndex;
+    }
+
+
+
+
+    /*
+     * findInsertIndexSpeed()
+     * Returns the index into the speed mode top 10 list where this
+     * particular time should go.
+     * Lower numbers mean faster time, and those are at the front
+     * of the list.
+     *
+     * userThisTime is the time scored by the user this most recent
+     * play.
+     */
+    private static int findInsertIndexSpeed(long userThisTime)
+    {
+        int returnIndex = -1;
+
+        /*
+         * if the list is empty (this is the first one in the list),
+         * it should go at index 0.
+         */
+        if (speedmodelist.size() == 0) {
+            returnIndex = 0;
+        } else {
+            int index = 0;
+
+            /*
+             *
+             */
+            while(index < speedmodelist.size()) {
+                if (userThisTime < speedmodelist.get(index).getTime())
+                {
+                    return (index);
+                }
+                index++;
+            }
+            returnIndex = index;
+        }
+        return returnIndex;
+    }
+
+
+
+
+
 
     //////////////// Testing Methods //////////////////
 
@@ -317,6 +555,6 @@ public class TopScoreMgr {
     public static void main(String[] args) {
         initializeTopScoreLists();
         testModifySpeedList();
-
+        System.out.println(newSpeedScoreIndex(new TopScoreEntry("Jerry", 20, 563)));
     }
 }

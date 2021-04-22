@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="MatchMarch21">
-    <output-path>$PROJECT_DIR$/MatchMarch21/out/artifacts/MatchMarch21</output-path>
+  <artifact type="javafx" name="NameGameAlpha">
+    <output-path>$PROJECT_DIR$/MatchMarch21/out/artifacts/NameGameAlpha</output-path>
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="SceneMaker" />
@@ -12,8 +12,8 @@
       </options>
     </properties>
     <root id="root">
-      <element id="archive" name="MatchMarch21.jar">
-        <element id="module-output" name="MatchMarch21" />
+      <element id="archive" name="NameGameAlpha.jar">
+        <element id="module-output" name="NameGameAlpha" />
         <element id="dir-copy" path="$PROJECT_DIR$/res" />
       </element>
     </root>

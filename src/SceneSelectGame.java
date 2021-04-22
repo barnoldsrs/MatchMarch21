@@ -52,7 +52,7 @@ public class SceneSelectGame
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
         buttonToTimedModeGame.setOnAction(this::buttonClickToTimeModeGame);
         buttonToSpeedModeGame.setOnAction(this::buttonClickToSpeedModeGame);
-;
+
         
         // Add the button and label into the pane
         pane.add(myLabelSelectGame_1, 0, 0);
@@ -89,10 +89,9 @@ public class SceneSelectGame
         * Do all of the stuff to initialize the speed mode game
         */
 
-        //SceneGameSpeed.resetSpeedGame();
-
+        SceneGameSpeed.resetSpeedGame(); // timer, counters, etc.
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_READYSTARTSPEED));
-       localStage.show();
+        localStage.show();
 
     }    
     
