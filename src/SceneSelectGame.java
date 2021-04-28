@@ -40,7 +40,13 @@ public class SceneSelectGame
         Button buttonToTimedModeGame = new Button("Timed Mode");
         Button buttonToSpeedModeGame  = new Button("Speed Mode");
         
-        
+        //Setting Object's Fonts
+        myLabelSelectGame_1.setFont(SceneMaker.getTitleFont());
+        buttonToMainMenu.setFont(SceneMaker.getLabelFont());
+        buttonToSpeedModeGame.setFont(SceneMaker.getLabelFont());
+        buttonToTimedModeGame.setFont(SceneMaker.getLabelFont());
+
+
         // Create a new grid pane
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10, 10, 10, 10));

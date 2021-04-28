@@ -17,6 +17,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -27,6 +30,7 @@ public class SceneMaker extends Application
 {
     //debugging on/off: when off cleans up terminal so less is printed except start up and closing commentary
     private static boolean debugging = false;
+
     /*
      * Scenes we need for this application
      */
@@ -48,7 +52,18 @@ public class SceneMaker extends Application
     
     //StateEvntTransitionEntry[] mainMenuStateTable;
     static ArrayList<Candidate> canList;    // The entire list of Candidates
-    
+
+    //Font Instantiation
+    private static String      fontFamily  = "Impact";
+    private static double      labelFontSize    = 13;
+    private static FontWeight labelFontWeight  = FontWeight.MEDIUM;
+    private static double      titleFontSize    = 25;
+    private static FontWeight  titleFontWeight  =  FontWeight.BOLD;
+
+
+    private static Font labelFont = Font.font(fontFamily, labelFontWeight, labelFontSize);
+    private static Font titleFont = Font.font(fontFamily, titleFontWeight , titleFontSize);
+
  
     @Override
     public void start(Stage stage) throws Exception
@@ -203,6 +218,14 @@ public class SceneMaker extends Application
 
     public static boolean isDebugging(){
         return debugging;
+    }
+
+    public static Font getLabelFont(){
+        return labelFont;
+    }
+
+    public static Font getTitleFont(){
+        return titleFont;
     }
 
   

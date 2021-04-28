@@ -81,6 +81,15 @@ public class SceneGameTimed
         vChoices.setPadding(new Insets(10));
         vChoices.setSpacing(20);
 
+        //Setting Object's Font
+        nameChoices[0].setFont(SceneMaker.getLabelFont());
+        nameChoices[1].setFont(SceneMaker.getLabelFont());
+        nameChoices[2].setFont(SceneMaker.getLabelFont());
+        nameChoices[3].setFont(SceneMaker.getLabelFont());
+        buttonToSelectGameMenu.setFont(SceneMaker.getLabelFont());
+        myLabelGameTimed_1.setFont(SceneMaker.getTitleFont());
+        labelRunningTally.setFont(SceneMaker.getLabelFont());
+
         nameChoices[0].setOnAction(this::buttonClickNameChoice_1);
         nameChoices[1].setOnAction(this::buttonClickNameChoice_2);
         nameChoices[2].setOnAction(this::buttonClickNameChoice_3);

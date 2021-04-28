@@ -64,6 +64,16 @@ public class SceneGameSpeed
                 new Button("3"),
                 new Button("4")
         };
+
+        //Setting Object's Font
+        nameChoices[0].setFont(SceneMaker.getLabelFont());
+        nameChoices[1].setFont(SceneMaker.getLabelFont());
+        nameChoices[2].setFont(SceneMaker.getLabelFont());
+        nameChoices[3].setFont(SceneMaker.getLabelFont());
+        buttonToSelectGameMenu.setFont(SceneMaker.getLabelFont());
+        myLabelGameSpeed_1.setFont(SceneMaker.getTitleFont());
+        labelRunningTally.setFont(SceneMaker.getLabelFont());
+
         
         // Create a new grid pane
         pane = new GridPane();

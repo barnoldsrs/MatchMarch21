@@ -39,6 +39,12 @@ public class SceneResultsTimed {
         Button buttonToMainMenu = new Button("Main Menu");
         Label playerScore = new Label("Score Placeholder");
 
+        //Setting Object's Fonts
+        nameInput.setFont(SceneMaker.getLabelFont());
+        submitScoreButton.setFont(SceneMaker.getLabelFont());
+        buttonToMainMenu.setFont(SceneMaker.getLabelFont());
+        playerScore.setFont(SceneMaker.getTitleFont());
+
         submitScoreButton.setOnAction(this::buttonClickToSubmitScore);
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
 

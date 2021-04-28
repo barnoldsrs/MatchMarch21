@@ -38,6 +38,11 @@ public class SceneReadyStartSpeed {
         startButton.setOnAction(this::buttonClickToStartGame);
         backButton.setOnAction(this::buttonClickBack);
 
+        //Set Object Fonts
+        startButton.setFont(SceneMaker.getLabelFont());
+        backButton.setFont(SceneMaker.getLabelFont());
+        ready.setFont(SceneMaker.getTitleFont());
+
         //add objects to the pane
         pane.add(startButton, 0, 1);
         pane.add(ready, 0,0);

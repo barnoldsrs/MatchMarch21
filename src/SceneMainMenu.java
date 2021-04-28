@@ -37,7 +37,12 @@ public class SceneMainMenu
         Button buttonToTopScoreMenu = new Button("Top Score Lists");
         Button buttonToSelectGameMenu = new Button("Game Select Menu");
         Button buttonToBbyeExit = new Button("Quit");
-        
+
+        //Set Font
+        buttonToTopScoreMenu.setFont(SceneMaker.getLabelFont());
+        buttonToSelectGameMenu.setFont(SceneMaker.getLabelFont());
+        buttonToBbyeExit.setFont(SceneMaker.getLabelFont());
+        myLabelMainMenu_1.setFont(SceneMaker.getTitleFont());
         // Create a new grid pane
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10, 10, 10, 10));

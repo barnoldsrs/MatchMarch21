@@ -45,6 +45,12 @@ public class SceneResultsSpeed {
         Button buttonToMainMenu = new Button("Main Menu");
         playerScore = new Label();
 
+        //Setting Object's Fonts
+        nameInput.setFont(SceneMaker.getLabelFont());
+        submitScoreButton.setFont(SceneMaker.getLabelFont());
+        buttonToMainMenu.setFont(SceneMaker.getLabelFont());
+        playerScore.setFont(SceneMaker.getTitleFont());
+
         submitScoreButton.setOnAction(this::buttonClickToSubmitScore);
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
 

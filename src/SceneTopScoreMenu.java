@@ -98,9 +98,14 @@ public class SceneTopScoreMenu
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
         buttonToShuffleMode.setOnAction(this::buttonClickToShuffleMode);
 
+        //Setting Object's Font
+        buttonToMainMenu.setFont(SceneMaker.getLabelFont());
+        buttonToShuffleMode.setFont(SceneMaker.getLabelFont());
+
 
         for (int i = 0; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++){
             leaderBoard[i] = new Label();
+            leaderBoard[i].setFont(SceneMaker.getLabelFont()); //Adding Font to score labels
         }
 
         // TODO: FIXME: Need better way to align max number
