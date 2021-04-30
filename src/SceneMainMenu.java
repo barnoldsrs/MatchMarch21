@@ -3,11 +3,14 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -45,22 +48,44 @@ public class SceneMainMenu
         myLabelMainMenu_1.setFont(SceneMaker.getTitleFont());
         // Create a new grid pane
         GridPane pane = new GridPane();
-        pane.setPadding(new Insets(10, 10, 10, 10));
+        pane.setPadding(new Insets(30, 10, 10, 10));
         pane.setMinSize(300, 300);
         pane.setVgap(10);
-        pane.setHgap(10);
+        pane.setHgap(20);
+
+        // align the pane in the top center of the screen
+        pane.setAlignment(Pos.TOP_CENTER);
+
+        // create HBoxes for the labels and buttons so that they can be individually centered/ aligned
+        HBox menuLabelH = new HBox();
+        menuLabelH.getChildren().add(myLabelMainMenu_1);
+
+        HBox scoreMenuButtonH = new HBox();
+        scoreMenuButtonH.getChildren().add(buttonToTopScoreMenu);
+
+        HBox gameSelectMenuButtonH = new HBox();
+        gameSelectMenuButtonH.getChildren().add(buttonToSelectGameMenu);
+
+        HBox quitButtonH = new HBox();
+        quitButtonH.getChildren().add(buttonToBbyeExit);
+
+        // set alignment for the HBox objects created above
+        menuLabelH.setAlignment(Pos.CENTER);
+        gameSelectMenuButtonH.setAlignment(Pos.CENTER);
+        scoreMenuButtonH.setAlignment(Pos.CENTER);
+        quitButtonH.setAlignment(Pos.CENTER);
 
         //set an action on the button using method reference
         buttonToTopScoreMenu.setOnAction(this::buttonClickToTopScoreMenu);
         buttonToSelectGameMenu.setOnAction(this::buttonClickToSelectGameMenu);
         buttonToBbyeExit.setOnAction(this::buttonClickToQuit);
-        
+
         
         // Add the button and label into the pane
-        pane.add(myLabelMainMenu_1, 0, 0);
-        pane.add(buttonToTopScoreMenu, 1, 0);
-        pane.add(buttonToSelectGameMenu, 1, 1);
-        pane.add(buttonToBbyeExit, 1, 2);        
+        pane.add(menuLabelH, 0, 0);
+        pane.add(scoreMenuButtonH, 0, 2);
+        pane.add(gameSelectMenuButtonH, 0, 1);
+        pane.add(quitButtonH, 0, 3);
         // JavaFX must have a Scene (window content) inside a Stage (window)
         Scene scene = new Scene(pane, 500,400);
         return scene;
@@ -112,10 +137,6 @@ public class SceneMainMenu
             }
         });
         new Thread(sleeper).start();
-        
-        
-
-
     }
     
 }

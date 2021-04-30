@@ -1,10 +1,12 @@
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class SceneResultsTimed {
@@ -30,10 +32,13 @@ public class SceneResultsTimed {
     private Scene makeSceneResultsTimed(){
         // new gridpane
         GridPane pane = new GridPane();
-        pane.setPadding(new Insets(10, 10, 10, 10));
+        pane.setPadding(new Insets(30, 10, 10, 10));
         pane.setMinSize(300, 300);
         pane.setVgap(10);
         pane.setHgap(10);
+
+        // align the pane in the top center of the screen
+        pane.setAlignment(Pos.TOP_CENTER);
 
         //create objects
         nameInput = new TextField("Name");
@@ -47,14 +52,34 @@ public class SceneResultsTimed {
         buttonToMainMenu.setFont(SceneMaker.getLabelFont());
         playerScore.setFont(SceneMaker.getTitleFont());
 
+        // create Hboxes
+        HBox nameInputH = new HBox();
+        nameInputH.getChildren().add(nameInput);
+
+        HBox menuButtonH = new HBox();
+        menuButtonH.getChildren().add(buttonToMainMenu);
+
+        HBox submitScoreH = new HBox();
+        submitScoreH.getChildren().add(submitScoreButton);
+
+        HBox score = new HBox();
+        score.getChildren().add(playerScore);
+
+        // center Hboxes
+        nameInputH.setAlignment(Pos.CENTER);
+        menuButtonH.setAlignment(Pos.CENTER);
+        submitScoreH.setAlignment(Pos.CENTER);
+        score.setAlignment(Pos.CENTER);
+
+        // add button actions
         submitScoreButton.setOnAction(this::buttonClickToSubmitScore);
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
 
         //add objects to the pane
-        pane.add(nameInput, 0, 1);
-        pane.add(playerScore, 0,0);
-        pane.add(submitScoreButton, 0, 2);
-        pane.add(buttonToMainMenu,0,3);
+        pane.add(nameInputH, 0, 1);
+        pane.add(score, 0,0);
+        pane.add(submitScoreH, 0, 2);
+        pane.add(menuButtonH,0,3);
 
         // return pane
         Scene scene = new Scene(pane, 500,400);

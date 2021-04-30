@@ -57,7 +57,7 @@ public class SceneMaker extends Application
     private static String      fontFamily  = "Impact";
     private static double      labelFontSize    = 13;
     private static FontWeight labelFontWeight  = FontWeight.MEDIUM;
-    private static double      titleFontSize    = 25;
+    private static double      titleFontSize    = 30;
     private static FontWeight  titleFontWeight  =  FontWeight.BOLD;
 
 

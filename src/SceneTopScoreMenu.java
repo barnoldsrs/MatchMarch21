@@ -1,16 +1,14 @@
-import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import javax.swing.*;
-import java.util.ArrayList;
-
+import java.awt.Color;
+import java.awt.Component;
 
 
 public class SceneTopScoreMenu
@@ -19,7 +17,12 @@ public class SceneTopScoreMenu
     private Scene topScoreMenuScene;
     private static Stage localStage;
     private static Label[] leaderBoard = new Label[TopScoreMgr.TOPSCORE_MAX_ENTRIES];
-    
+
+    private static HBox[] leaderBoardH = new HBox[TopScoreMgr.TOPSCORE_MAX_ENTRIES];
+
+    static String scoreSpeedTitle;
+    static String scoreTimedTitle;
+    static Label titleLabel;
     
     private String[] top10Speed = {"Flynn 00:10.34","Nathan 00:10.89","Jill 00:15.78","Kate 00:19.25","Harold 00:23.45",
             "Dan 00:36.76","Pam 00:45.12","Bill 00:50.84","Toby 00:59.85","Alex 01:02.36"};
@@ -89,42 +92,75 @@ public class SceneTopScoreMenu
         Button buttonToMainMenu = new Button("Main Menu");          //Sends User to Menu Scene
         Button buttonToShuffleMode = new Button("Next Leaderboard");  //Displays next LeaderBoard
 
+        scoreSpeedTitle = "Speed Mode Top Scores";
+        scoreTimedTitle = "Timed Mode Top Scores";
+
+        titleLabel = new Label(scoreSpeedTitle);
+
         GridPane pane = new GridPane();
-        pane.setPadding(new Insets(10, 10,10,10));
+        pane.setPadding(new Insets(30, 10,10,10));
         pane.setMinSize(300,300);
         pane.setVgap(10);
         pane.setHgap(10);
 
+        // align the pane in the top center of the screen
+        pane.setAlignment(Pos.TOP_CENTER);
+
+        // add button actions
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
         buttonToShuffleMode.setOnAction(this::buttonClickToShuffleMode);
 
         //Setting Object's Font
         buttonToMainMenu.setFont(SceneMaker.getLabelFont());
         buttonToShuffleMode.setFont(SceneMaker.getLabelFont());
+        titleLabel.setFont(SceneMaker.getTitleFont());
 
 
         for (int i = 0; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++){
             leaderBoard[i] = new Label();
+
+            //create associated Hboxes to center all data on table
+            leaderBoardH[i] = new HBox();
+            leaderBoardH[i].getChildren().add(leaderBoard[i]);
+            leaderBoardH[i].setAlignment(Pos.CENTER);
+
+            // set font
             leaderBoard[i].setFont(SceneMaker.getLabelFont()); //Adding Font to score labels
         }
 
         // TODO: FIXME: Need better way to align max number
         //              of entries with layout arithmetic
-        for (int i = 0; i < 2; i++){
-            for (int j = 0; j < TopScoreMgr.TOPSCORE_MAX_ENTRIES / 2; j++){
+        for (int i = 1; i <= 2; i++){
+            for (int j = 1; j <= TopScoreMgr.TOPSCORE_MAX_ENTRIES / 2; j++){
                 //System.out.println(c + " " + i + " " +j);
-                pane.add(leaderBoard[c],i,j);
+                pane.add(leaderBoardH[c],i,j);
                 c++;
             }
         }
 
+        // add Hboxes
+        HBox titleLabelH = new HBox();
+        titleLabelH.getChildren().add(titleLabel);
 
+        HBox mainMenuButtonH = new HBox();
+        mainMenuButtonH.getChildren().add(buttonToMainMenu);
 
-        pane.add(buttonToMainMenu,0,5);
-        pane.add(buttonToShuffleMode,1,5);
+        HBox nextScoreBoardH = new HBox();
+        nextScoreBoardH.getChildren().add(buttonToShuffleMode);
+
+        // set alignment of hboxes
+        titleLabelH.setAlignment(Pos.CENTER);
+        mainMenuButtonH.setAlignment(Pos.CENTER);
+        nextScoreBoardH.setAlignment(Pos.CENTER);
+
+        // add things to the pane
+        pane.add(titleLabelH, 0, 0, 4, 1);
+
+        pane.add(mainMenuButtonH,1,6);
+        pane.add(nextScoreBoardH,2,6);
         populateLabelsSpeed(false); // false == don't show the Top 10 Score Title
 
-        Scene scene = new Scene(pane,400,400);
+        Scene scene = new Scene(pane,500,400);
 
         return scene;
     }    
@@ -164,6 +200,8 @@ public class SceneTopScoreMenu
             leaderBoard[i].setText(i + 1 + ". " + "<empty>");
         }
 
+        titleLabel.setText(scoreSpeedTitle);
+
     }
 
     public static void populateLabelsTimed(boolean doShowTitle){
@@ -181,6 +219,8 @@ public class SceneTopScoreMenu
         for(int i = numElements; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++) {
             leaderBoard[i].setText(i + 1 + ". " + "<empty>");
         }
+
+        titleLabel.setText(scoreTimedTitle);
 
     }
   

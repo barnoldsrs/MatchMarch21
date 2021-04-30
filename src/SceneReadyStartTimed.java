@@ -3,10 +3,12 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class SceneReadyStartTimed {
@@ -33,16 +35,31 @@ public class SceneReadyStartTimed {
     private Scene makeSceneReadyStart(){
         // new gridpane
         GridPane pane = new GridPane();
-        pane.setPadding(new Insets(10, 10, 10, 10));
+        pane.setPadding(new Insets(30, 10, 10, 10));
         pane.setMinSize(300, 300);
         pane.setVgap(10);
         pane.setHgap(10);
+
+        // align the pane in the top center of the screen
+        pane.setAlignment(Pos.TOP_CENTER);
 
         //create objects
         Button startButton = new Button("Start");
         Button backButton = new Button("Back");
         Label ready = new Label("READY?");
 
+        // create hboxes
+        HBox startButtonH = new HBox();
+        startButtonH.getChildren().add(startButton);
+
+        HBox backButtonH = new HBox();
+        backButtonH.getChildren().add(backButton);
+
+        // center hboxes
+        startButtonH.setAlignment(Pos.CENTER);
+        backButtonH.setAlignment(Pos.CENTER);
+
+        // check button clicks
         startButton.setOnAction(this::buttonClickToStartGame);
         backButton.setOnAction(this::buttonClickBack);
 
@@ -52,9 +69,9 @@ public class SceneReadyStartTimed {
         ready.setFont(SceneMaker.getTitleFont());
 
         //add objects to the pane
-        pane.add(startButton, 0, 1);
+        pane.add(startButtonH, 0, 1);
         pane.add(ready, 0,0);
-        pane.add(backButton, 0, 2);
+        pane.add(backButtonH, 0, 2);
 
         // return pane
         Scene scene = new Scene(pane, 500,400);

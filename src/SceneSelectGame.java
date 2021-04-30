@@ -1,11 +1,13 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -49,10 +51,32 @@ public class SceneSelectGame
 
         // Create a new grid pane
         GridPane pane = new GridPane();
-        pane.setPadding(new Insets(10, 10, 10, 10));
+        pane.setPadding(new Insets(30, 10, 10, 10));
         pane.setMinSize(300, 300);
         pane.setVgap(10);
         pane.setHgap(10);
+
+        // align the pane in the top center of the screen
+        pane.setAlignment(Pos.TOP_CENTER);
+
+        // Create Hboxes
+        HBox timedModeButtonH = new HBox();
+        timedModeButtonH.getChildren().add(buttonToTimedModeGame);
+
+        HBox speedModeButtonH = new HBox();
+        speedModeButtonH.getChildren().add(buttonToSpeedModeGame);
+
+        HBox mainMeunButtonH = new HBox();
+        mainMeunButtonH.getChildren().add(buttonToMainMenu);
+
+        HBox selectGameTextH = new HBox();
+        selectGameTextH.getChildren().add(myLabelSelectGame_1);
+
+        // set alignment for the HBox objects created above
+        timedModeButtonH.setAlignment(Pos.CENTER);
+        speedModeButtonH.setAlignment(Pos.CENTER);
+        mainMeunButtonH.setAlignment(Pos.CENTER);
+        selectGameTextH.setAlignment(Pos.CENTER);
 
         //set an action on the button using method reference
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
@@ -61,10 +85,10 @@ public class SceneSelectGame
 
         
         // Add the button and label into the pane
-        pane.add(myLabelSelectGame_1, 0, 0);
-        pane.add(buttonToMainMenu, 1, 0);
-        pane.add(buttonToTimedModeGame, 1, 1);
-        pane.add(buttonToSpeedModeGame, 1, 2);        
+        pane.add(selectGameTextH, 0, 0);
+        pane.add(mainMeunButtonH, 0, 3);
+        pane.add(timedModeButtonH, 0, 2);
+        pane.add(speedModeButtonH, 0, 1);
         
         
         // JavaFX must have a Scene (window content) inside a Stage (window)
