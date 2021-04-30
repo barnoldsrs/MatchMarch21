@@ -104,6 +104,6 @@ public class SceneResultsTimed {
     }
 
     public static void updatePlayerScore() {
-        playerScore.setText(Integer.toString(SceneGameSpeed.numCorrect));
+        playerScore.setText("Score: " + Integer.toString(SceneGameSpeed.numCorrect));
     }
 }

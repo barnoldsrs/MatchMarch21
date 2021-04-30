@@ -82,7 +82,7 @@ public class SceneGameTimed
 
         // Create a new grid pane
         pane = new GridPane();
-        pane.setPadding(new Insets(10, 10, 10, 10));
+        pane.setPadding(new Insets(30, 10, 10, 10));
         pane.setMinSize(300, 300);
         pane.setVgap(10);
         pane.setHgap(10);
@@ -126,7 +126,7 @@ public class SceneGameTimed
         pane.add(labelRunningTally, 0, 4);
         pane.add(timeLabel, 2, 0);
 
-        pane.add(buttonToSelectGameMenu, 1, 0);
+        pane.add(buttonToSelectGameMenu, 2, 4);
 
         // JavaFX must have a Scene (window content) inside a Stage (window)
         Scene scene = new Scene(pane, 500,400);
@@ -159,6 +159,7 @@ public class SceneGameTimed
             numWrong++;
         }
         nextSet(canList);
+        updateRunningTally();
     }
     private void buttonClickNameChoice_2 (ActionEvent event)
     {
@@ -177,6 +178,7 @@ public class SceneGameTimed
             numWrong++;
         }
         nextSet(canList);
+        updateRunningTally();
     }
 
     private void buttonClickNameChoice_3 (ActionEvent event)
@@ -197,6 +199,7 @@ public class SceneGameTimed
             numWrong++;
         }
         nextSet(canList);
+        updateRunningTally();
     }
 
     private void buttonClickNameChoice_4 (ActionEvent event)
@@ -216,6 +219,7 @@ public class SceneGameTimed
             numWrong++;
         }
         nextSet(canList);
+        updateRunningTally();
     }
 
     private void populateButtons(Button[] bs, ArrayList<Candidate> targsDecs)
@@ -270,6 +274,7 @@ public class SceneGameTimed
     {
         numCorrect = 0;
         numWrong = 0;
+        updateRunningTally();
         time = 0;
         nextSet(canList);
     }
@@ -302,4 +307,9 @@ public class SceneGameTimed
     public int getNumCorrect() { return numCorrect; }
 
     public int getNumWrong(){ return numWrong; }
+
+    private static void updateRunningTally(){
+        String sTally = "Correct: " + numCorrect + "; Wrong: " + numWrong;
+        labelRunningTally.setText(sTally);
+    }
 }

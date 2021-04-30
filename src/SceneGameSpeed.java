@@ -78,7 +78,7 @@ public class SceneGameSpeed
         
         // Create a new grid pane
         pane = new GridPane();
-        pane.setPadding(new Insets(10, 10, 10, 10));
+        pane.setPadding(new Insets(30, 10, 10, 10));
         pane.setMinSize(300, 300);
         pane.setVgap(10);
         pane.setHgap(10);
@@ -120,7 +120,7 @@ public class SceneGameSpeed
         pane.add(myLabelGameSpeed_1, 0, 0);
         pane.add(labelRunningTally, 0, 4);
 
-        pane.add(buttonToSelectGameMenu, 1, 0);
+        pane.add(buttonToSelectGameMenu, 2, 4);
              
         // JavaFX must have a Scene (window content) inside a Stage (window)
         Scene scene = new Scene(pane, 500,400);
