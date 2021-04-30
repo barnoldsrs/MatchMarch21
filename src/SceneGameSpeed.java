@@ -37,7 +37,8 @@ public class SceneGameSpeed
     static int numWrong = 0;                      // overall counts
     static long endTime;
     static int time = 0;                        //time it takes to answer twenty correct questions
-    static int winCondition = 1;
+    static int penalty = 5;                     //penalty modifier on score for answering question wrong (in seconds)
+    static final int WIN_CONDITION = 1;
 
     static GridPane pane;
 
@@ -273,12 +274,12 @@ public class SceneGameSpeed
 
     private static void updateRunningTally()
     {
-        if(numCorrect < winCondition) {
+        if(numCorrect < WIN_CONDITION) {
             String sTally = "Correct: " + numCorrect + "; Wrong: " + numWrong;
             labelRunningTally.setText(sTally);
         } else {
             endTime = System.currentTimeMillis();
-            time = (int)((endTime - SceneReadyStartSpeed.initialTime) / 1000);
+            time = (int)((endTime - SceneReadyStartSpeed.initialTime) / 1000) + numWrong * penalty;
             if(SceneMaker.isDebugging() == true) {
                 System.out.println("---------------" + time + "----------");
             }
