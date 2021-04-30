@@ -90,8 +90,10 @@ public class TargetMgr {
              * if the first in the list has been used recently, reshuffle
              * the entire list and pick the first four again.
              */
-            System.out.println("Oops! Can't use that one again so soon. "
-                    + sourceList.get(0).getFirstName() + " " + sourceList.get(0).getLastName());
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Oops! Can't use that one again so soon. "
+                        + sourceList.get(0).getFirstName() + " " + sourceList.get(0).getLastName());
+            }
             Collections.shuffle(sourceList);
         }
 

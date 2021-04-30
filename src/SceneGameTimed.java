@@ -69,6 +69,17 @@ public class SceneGameTimed
                 new Button("4")
         };
 
+        //Setting Object's Font
+
+        nameChoices[0].setFont(SceneMaker.getLabelFont());
+        nameChoices[1].setFont(SceneMaker.getLabelFont());
+        nameChoices[2].setFont(SceneMaker.getLabelFont());
+        nameChoices[3].setFont(SceneMaker.getLabelFont());
+        buttonToSelectGameMenu.setFont(SceneMaker.getLabelFont());
+        myLabelGameTimed_1.setFont(SceneMaker.getTitleFont());
+        labelRunningTally.setFont(SceneMaker.getLabelFont());
+
+
         // Create a new grid pane
         pane = new GridPane();
         pane.setPadding(new Insets(10, 10, 10, 10));
@@ -81,14 +92,6 @@ public class SceneGameTimed
         vChoices.setPadding(new Insets(10));
         vChoices.setSpacing(20);
 
-        //Setting Object's Font
-        nameChoices[0].setFont(SceneMaker.getLabelFont());
-        nameChoices[1].setFont(SceneMaker.getLabelFont());
-        nameChoices[2].setFont(SceneMaker.getLabelFont());
-        nameChoices[3].setFont(SceneMaker.getLabelFont());
-        buttonToSelectGameMenu.setFont(SceneMaker.getLabelFont());
-        myLabelGameTimed_1.setFont(SceneMaker.getTitleFont());
-        labelRunningTally.setFont(SceneMaker.getLabelFont());
 
         nameChoices[0].setOnAction(this::buttonClickNameChoice_1);
         nameChoices[1].setOnAction(this::buttonClickNameChoice_2);
@@ -141,24 +144,36 @@ public class SceneGameTimed
     }
     private void buttonClickNameChoice_1 (ActionEvent event)
     {
-        System.out.println("Choice 1");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Choice 1");
+        }
         if (currentTarget == targetDecoys.get(0)) {
-            System.out.println("CORRECT!");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("CORRECT!");
+            }
             numCorrect++;
         } else {
-            System.out.println("Nope");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Nope");
+            }
             numWrong++;
         }
         nextSet(canList);
     }
     private void buttonClickNameChoice_2 (ActionEvent event)
     {
-        System.out.println("Choice 2");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Choice 2");
+        }
         if (currentTarget == targetDecoys.get(1)) {
-            System.out.println("CORRECT!");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("CORRECT!");
+            }
             numCorrect++;
         } else {
-            System.out.println("Nope");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Nope");
+            }
             numWrong++;
         }
         nextSet(canList);
@@ -166,13 +181,19 @@ public class SceneGameTimed
 
     private void buttonClickNameChoice_3 (ActionEvent event)
     {
-        System.out.println("Choice 3");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Choice 3");
+        }
 
         if (currentTarget == targetDecoys.get(2)) {
-            System.out.println("CORRECT!");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("CORRECT!");
+            }
             numCorrect++;
         } else {
-            System.out.println("Nope");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Nope");
+            }
             numWrong++;
         }
         nextSet(canList);
@@ -180,12 +201,18 @@ public class SceneGameTimed
 
     private void buttonClickNameChoice_4 (ActionEvent event)
     {
-        System.out.println("Choice 4");
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Choice 4");
+        }
         if (currentTarget == targetDecoys.get(3)) {
-            System.out.println("CORRECT!");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("CORRECT!");
+            }
             numCorrect++;
         } else {
-            System.out.println("Nope");
+            if(SceneMaker.isDebugging() == true) {
+                System.out.println("Nope");
+            }
             numWrong++;
         }
         nextSet(canList);
@@ -203,7 +230,9 @@ public class SceneGameTimed
 
     public void nextSet(ArrayList<Candidate> canList)
     {
-        System.out.println("Correct/Wrong: " + numCorrect + " / " + numWrong);
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("Correct/Wrong: " + numCorrect + " / " + numWrong);
+        }
         targetDecoys = TargetMgr.getTargetDecoys(canList);
         currentTarget = targetDecoys.get(0);
 
@@ -261,8 +290,16 @@ public class SceneGameTimed
 
     public static void setTimeImg(int t){
         timeLabel.setText("Time: " + t);
-
-        System.out.println("check --- " + t);
+        if(SceneMaker.isDebugging() == true) {
+            System.out.println("check --- " + t);
+        }
 
     }
+
+    //Getters & Setters
+    public int getTime(){  return time; }
+
+    public int getNumCorrect() { return numCorrect; }
+
+    public int getNumWrong(){ return numWrong; }
 }

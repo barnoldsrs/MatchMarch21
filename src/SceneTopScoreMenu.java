@@ -157,7 +157,7 @@ public class SceneTopScoreMenu
         int numElements = TopScoreMgr.getSpeedmodelist().size();
         for(int i = 0; i < numElements; i++) {
             leaderBoard[i].setText(i + 1 + ". " + TopScoreMgr.getSpeedEntry(i).getName()
-                    + " " + TopScoreMgr.getSpeedEntry(i).getTime());
+                    + " " + SceneResultsSpeed.scoreToMinSec((int)TopScoreMgr.getSpeedEntry(i).getTime()));
         }
 
         for(int i = numElements; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++) {

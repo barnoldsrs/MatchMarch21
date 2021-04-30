@@ -37,7 +37,7 @@ public class SceneGameSpeed
     static int numWrong = 0;                      // overall counts
     static long endTime;
     static int time = 0;                        //time it takes to answer twenty correct questions
-    static int winCondition = 3;
+    static int winCondition = 1;
 
     static GridPane pane;
 
@@ -232,10 +232,7 @@ public class SceneGameSpeed
         bs[3].setText(targsDecs.get(3).getFirstName() + " " + targsDecs.get(3).getLastName());
     }
 
-    /*
-     * nextSet()
-     * Get another set of one target and N decoys in a list.
-     */
+
     public static void nextSet(ArrayList<Candidate> canList)
     {
         if(SceneMaker.isDebugging() == true) {

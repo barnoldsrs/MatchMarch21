@@ -82,10 +82,13 @@ public class SceneReadyStartTimed {
                     for(int i = 0; i <= numSeconds; i++){
                         SceneGameTimed.setTimeImg(i);
                         Thread.sleep(1000);
-                        System.out.println("--------------" + i);
+                        if(SceneMaker.isDebugging() == true) {
+                            System.out.println("--------------" + i);
+                        }
                     }
 
 
+                    SceneResultsTimed.updatePlayerScore();
 
                     //Thread.sleep(5*1000);           // number of seconds * 1000 to convert for milliseconds -- this number is subject to change
                 } catch (InterruptedException e) {

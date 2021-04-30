@@ -84,6 +84,23 @@ public class SceneResultsSpeed {
     }
 
     public static void updatePlayerScore() {
-        playerScore.setText(Integer.toString(SceneGameSpeed.time));
+        playerScore.setText("Score: " + scoreToMinSec(SceneGameSpeed.time));
+    }
+
+    public static String scoreToMinSec(int t) {
+        int min = 0;
+        int sec = 0;
+        sec = t % 60;
+        if(t > 60) {
+            min = t / 60;
+        }
+        if (min < 10 && sec < 10) { return "0" + min + ":0" + sec; }
+        if (min < 10 && sec >= 10) { return "0" + min + ":" + sec; }
+        if (min == 0 && sec < 10) { return "00:0" + sec; }
+        if (min == 0 && sec >= 10) { return "00:" + sec; }
+        if (min > 10 && sec < 10) { return min + ":0" + sec; }
+        if(min > 10 && sec >= 10) { return min + ":" + sec; }
+
+        else return "<Error> Minutes: " + min + " Seconds: " + sec;
     }
 }

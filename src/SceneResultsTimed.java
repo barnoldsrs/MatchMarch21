@@ -15,6 +15,8 @@ public class SceneResultsTimed {
     String username;
     TextField nameInput;
 
+    private static Label playerScore;
+
     public SceneResultsTimed(Stage stage){
         readyStartScene = makeSceneResultsTimed();
         localStage = stage;
@@ -37,7 +39,7 @@ public class SceneResultsTimed {
         nameInput = new TextField("Name");
         Button submitScoreButton = new Button("Submit Score");
         Button buttonToMainMenu = new Button("Main Menu");
-        Label playerScore = new Label("Score Placeholder");
+        playerScore = new Label("Score Placeholder");
 
         //Setting Object's Fonts
         nameInput.setFont(SceneMaker.getLabelFont());
@@ -74,5 +76,9 @@ public class SceneResultsTimed {
         localStage.setTitle("Top 10 Timed Mode Scores");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_TOPSCOREMENU));
         localStage.show();
+    }
+
+    public static void updatePlayerScore() {
+        playerScore.setText(Integer.toString(SceneGameSpeed.numCorrect));
     }
 }
