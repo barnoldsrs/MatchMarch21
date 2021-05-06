@@ -308,7 +308,7 @@ public class SceneGameSpeed
     //Getter methods
     public int getTime(){  return time; }
 
-    public int getNumCorrect() { return numCorrect; }
+    public static int getNumCorrect() { return numCorrect; }
 
     public int getNumWrong(){ return numWrong; }
 

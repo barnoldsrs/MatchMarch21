@@ -222,7 +222,7 @@ public class SceneGameTimed
         updateRunningTally();
     }
 
-    private void populateButtons(Button[] bs, ArrayList<Candidate> targsDecs)
+    private static void populateButtons(Button[] bs, ArrayList<Candidate> targsDecs)
     {
         Collections.shuffle(targsDecs);
 
@@ -232,7 +232,7 @@ public class SceneGameTimed
         bs[3].setText(targsDecs.get(3).getFirstName() + " " + targsDecs.get(3).getLastName());
     }
 
-    public void nextSet(ArrayList<Candidate> canList)
+    public static void nextSet(ArrayList<Candidate> canList)
     {
         if(SceneMaker.isDebugging() == true) {
             System.out.println("Correct/Wrong: " + numCorrect + " / " + numWrong);
@@ -270,7 +270,7 @@ public class SceneGameTimed
 
     }
 
-    public void resetTimedGame()
+    public static void resetTimedGame()
     {
         numCorrect = 0;
         numWrong = 0;
@@ -304,7 +304,7 @@ public class SceneGameTimed
     //Getters & Setters
     public int getTime(){  return time; }
 
-    public int getNumCorrect() { return numCorrect; }
+    public static int getNumCorrect() { return numCorrect; }
 
     public int getNumWrong(){ return numWrong; }
 

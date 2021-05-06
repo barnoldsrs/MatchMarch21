@@ -93,6 +93,8 @@ public class SceneResultsTimed {
         localStage.setTitle("Main Menu");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_MAINMENU));
         localStage.show();
+
+        SceneGameTimed.resetTimedGame();
     }
 
     private void buttonClickToSubmitScore(ActionEvent event) {
@@ -101,9 +103,11 @@ public class SceneResultsTimed {
         localStage.setTitle("Top 10 Timed Mode Scores");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_TOPSCOREMENU));
         localStage.show();
+
+        SceneGameTimed.resetTimedGame();
     }
 
     public static void updatePlayerScore() {
-        playerScore.setText("Score: " + Integer.toString(SceneGameSpeed.numCorrect));
+        playerScore.setText("Score: " + SceneGameTimed.getNumCorrect());
     }
 }
