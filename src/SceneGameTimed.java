@@ -1,7 +1,11 @@
 
 
 
-import javafx.application.Application;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -13,9 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import sun.lwawt.macosx.CSystemTray;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -23,7 +27,7 @@ import java.util.Collections;
 public class SceneGameTimed
 {
     private Label myLabelGameTimed_1       = new Label("Game - Timed");
-    private static Label labelRunningTally             = new Label("01234567891234");
+    private static Label labelRunningTally = new Label("01234567891234");
     private Scene gameTimedScene;
     private static Stage localStage;
 
@@ -39,7 +43,12 @@ public class SceneGameTimed
     static int numWrong = 0;                      // overall counts
     static int time = 0;                        //time it takes to answer twenty correct questions
 
-    private static Label timeLabel = new Label("Time: 7");
+    private static Label timeLabel = new Label("Time");
+
+    private static final Integer STARTTIME = 15;    // Number of seconds to let user play
+    private static Timeline timeline;
+    private static IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+
 
     static GridPane pane;
 
@@ -49,7 +58,6 @@ public class SceneGameTimed
     {
         gameTimedScene = makeSceneGameTimed();
         localStage = stage;
-        timeLabel = new Label("Time: 0");
         cancel = false;
     }
     
@@ -70,7 +78,6 @@ public class SceneGameTimed
         };
 
         //Setting Object's Font
-
         nameChoices[0].setFont(SceneMaker.getLabelFont());
         nameChoices[1].setFont(SceneMaker.getLabelFont());
         nameChoices[2].setFont(SceneMaker.getLabelFont());
@@ -78,7 +85,12 @@ public class SceneGameTimed
         buttonToSelectGameMenu.setFont(SceneMaker.getLabelFont());
         myLabelGameTimed_1.setFont(SceneMaker.getTitleFont());
         labelRunningTally.setFont(SceneMaker.getLabelFont());
+        timeLabel.setFont(SceneMaker.getTitleFont());
 
+
+        // Bind the timeLabel text property to the timeSeconds property
+        // so the seconds updates automatically on the screen
+        timeLabel.textProperty().bind(timeSeconds.asString());
 
         // Create a new grid pane
         pane = new GridPane();
@@ -130,10 +142,38 @@ public class SceneGameTimed
 
         // JavaFX must have a Scene (window content) inside a Stage (window)
         Scene scene = new Scene(pane, 500,400);
-
         return scene;
     }
-        
+
+    /*
+     * Called by event handler in SceneReadyStartTimer in order to start the
+     * Timer KeyFrame animation.  Specifies an event handler when timer expires.
+     */
+    public static void startTimerLabel()
+    {
+        {
+            if (timeline != null) {
+                timeline.stop();
+            }
+            timeSeconds.set(STARTTIME);
+            //timeLabel.setText(timeSeconds.toString());
+            timeline = new Timeline();
+            //timeline.setCycleCount(timeline.INDEFINITE);  // need this?
+
+            timeline.getKeyFrames().add(
+                    new KeyFrame(Duration.seconds(STARTTIME+1),
+                            new EventHandler<ActionEvent>() {
+                                public void handle(ActionEvent event) {
+                                    System.out.println("Got Timer timeout.");
+                                    cancel = true;
+                                    localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_RESULTSTIMED));
+                                }
+                            },
+                            new KeyValue(timeSeconds, 0)));
+            timeline.playFromStart();
+        }
+    }
+
     private void buttonClickToGameSelect(ActionEvent event)
     {
        localStage.setTitle("Game Select Menu");

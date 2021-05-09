@@ -1,8 +1,7 @@
 
 
-import javafx.application.Application;
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -12,8 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -38,7 +35,7 @@ public class SceneGameSpeed
     static long endTime;
     static int time = 0;                        //time it takes to answer twenty correct questions
     static int penalty = 5;                     //penalty modifier on score for answering question wrong (in seconds)
-    static final int WIN_CONDITION = 1;
+    static final int WIN_CONDITION = 10;
 
     static GridPane pane;
 
@@ -75,7 +72,6 @@ public class SceneGameSpeed
         myLabelGameSpeed_1.setFont(SceneMaker.getTitleFont());
         labelRunningTally.setFont(SceneMaker.getLabelFont());
 
-        
         // Create a new grid pane
         pane = new GridPane();
         pane.setPadding(new Insets(30, 10, 10, 10));
@@ -95,7 +91,6 @@ public class SceneGameSpeed
 
         // Set up the text for the four buttons
         // populateButtons(options, targetDecoys);
-
         for (int i=0; i<4; i++) {
             VBox.setMargin(nameChoices[i], new Insets(0, 0, 0, 8));
             vChoices.getChildren().add(nameChoices[i]);
@@ -213,11 +208,6 @@ public class SceneGameSpeed
         updateRunningTally();
         nextSet(canList);
     }
-
-    /*
-     ***************************************
-     */
-
 
     /*
      * populateButtons()

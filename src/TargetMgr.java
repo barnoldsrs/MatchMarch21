@@ -16,7 +16,7 @@ public class TargetMgr {
 
 
     // Want to avoid reusing a target name too soon after using it previously
-    static final int MAX_RECENT_TARGETS = 5;
+    static final int MAX_RECENT_TARGETS = 10;
 
     // Number of non-target names to show on the screen
     static final int NUM_DECOYS = 3;

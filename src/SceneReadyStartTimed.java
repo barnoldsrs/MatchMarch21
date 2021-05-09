@@ -17,7 +17,6 @@ public class SceneReadyStartTimed {
     private Stage localStage;
 
     private int numSeconds;
-
     public long startTime;
 
     public SceneReadyStartTimed(Stage stage) {
@@ -89,40 +88,6 @@ public class SceneReadyStartTimed {
         SceneGameTimed.setCancel(false);
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_GAMETIMED));
         localStage.show();
-
-        // track time
-        Task<Void> sleeper = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                try {
-
-                    for(int i = 0; i <= numSeconds; i++){
-                        SceneGameTimed.setTimeImg(i);
-                        Thread.sleep(1000);
-                        if(SceneMaker.isDebugging() == true) {
-                            System.out.println("--------------" + i);
-                        }
-                    }
-
-
-                    SceneResultsTimed.updatePlayerScore();
-
-                    //Thread.sleep(5*1000);           // number of seconds * 1000 to convert for milliseconds -- this number is subject to change
-                } catch (InterruptedException e) {
-                }
-                return null;
-            }
-        };
-        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                // cancels the operation to change screens if the menu button was selected while it was running
-                if(SceneGameTimed.getCancel() == false) {
-                    localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_RESULTSTIMED));
-                }
-
-            }
-        });
-        new Thread(sleeper).start();
+        SceneGameTimed.startTimerLabel();       // Start the KeyFrame Animation (of time)
     }
 }

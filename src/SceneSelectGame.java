@@ -107,6 +107,7 @@ public class SceneSelectGame
     private void buttonClickToTimeModeGame(ActionEvent event)
     {
        localStage.setTitle("Timed Mode Game");
+       SceneGameTimed.resetTimedGame(); // timer, counters, etc.
        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_READYSTARTTIMED));
        localStage.show();
 
