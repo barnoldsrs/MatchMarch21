@@ -46,6 +46,7 @@ public class SceneMainMenu
         buttonToSelectGameMenu.setFont(SceneMaker.getLabelFont());
         buttonToBbyeExit.setFont(SceneMaker.getLabelFont());
         myLabelMainMenu_1.setFont(SceneMaker.getTitleFont());
+
         // Create a new grid pane
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(30, 10, 10, 10));
@@ -96,7 +97,7 @@ public class SceneMainMenu
     
     private void buttonClickToTopScoreMenu(ActionEvent event)
     {
-       localStage.setTitle("Top 10 Speed Mode Scores");
+       localStage.setTitle(SceneTopScoreMenu.getWhichScores());
        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_TOPSCOREMENU));
        localStage.show();
 

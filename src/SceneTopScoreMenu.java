@@ -18,12 +18,12 @@ public class SceneTopScoreMenu
     private static Stage localStage;
     private static Label[] leaderBoard = new Label[TopScoreMgr.TOPSCORE_MAX_ENTRIES];
 
-    private static HBox[] leaderBoardH = new HBox[TopScoreMgr.TOPSCORE_MAX_ENTRIES];
-
     static String scoreSpeedTitle;
     static String scoreTimedTitle;
     static Label titleLabel;
-    
+
+    private static boolean isSpeedMode = true;
+
     private String[] top10Speed = {"Flynn 00:10.34","Nathan 00:10.89","Jill 00:15.78","Kate 00:19.25","Harold 00:23.45",
             "Dan 00:36.76","Pam 00:45.12","Bill 00:50.84","Toby 00:59.85","Alex 01:02.36"};
     private String[] top10Timed = {"Jill 00:10.34","Nathan 00:10.89","Kate 00:15.78","Flynn 00:19.25","Toby 00:23.45",
@@ -55,10 +55,7 @@ public class SceneTopScoreMenu
        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_MAINMENU));
        localStage.show();        
 
-    }    
-    
-
-    
+    }
     
     public Scene makeSceneTopScore()
     {
@@ -91,6 +88,7 @@ public class SceneTopScoreMenu
 
         Button buttonToMainMenu = new Button("Main Menu");          //Sends User to Menu Scene
         Button buttonToShuffleMode = new Button("Next Leaderboard");  //Displays next LeaderBoard
+        Button buttonToClearLeaderboard = new Button("Clear Leaderboard"); // sends user to SceneClearLeaderboard
 
         scoreSpeedTitle = "Speed Mode Top Scores";
         scoreTimedTitle = "Timed Mode Top Scores";
@@ -109,20 +107,17 @@ public class SceneTopScoreMenu
         // add button actions
         buttonToMainMenu.setOnAction(this::buttonClickToMainMenu);
         buttonToShuffleMode.setOnAction(this::buttonClickToShuffleMode);
+        buttonToClearLeaderboard.setOnAction(this::buttonClickToClearLeaderboard);
 
         //Setting Object's Font
         buttonToMainMenu.setFont(SceneMaker.getLabelFont());
         buttonToShuffleMode.setFont(SceneMaker.getLabelFont());
+        buttonToClearLeaderboard.setFont(SceneMaker.getLabelFont());
         titleLabel.setFont(SceneMaker.getTitleFont());
 
 
         for (int i = 0; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++){
             leaderBoard[i] = new Label();
-
-            //create associated Hboxes to center all data on table
-            leaderBoardH[i] = new HBox();
-            leaderBoardH[i].getChildren().add(leaderBoard[i]);
-            leaderBoardH[i].setAlignment(Pos.CENTER);
 
             // set font
             leaderBoard[i].setFont(SceneMaker.getLabelFont()); //Adding Font to score labels
@@ -133,7 +128,7 @@ public class SceneTopScoreMenu
         for (int i = 1; i <= 2; i++){
             for (int j = 1; j <= TopScoreMgr.TOPSCORE_MAX_ENTRIES / 2; j++){
                 //System.out.println(c + " " + i + " " +j);
-                pane.add(leaderBoardH[c],i,j);
+                pane.add(leaderBoard[c],i,j);
                 c++;
             }
         }
@@ -148,23 +143,27 @@ public class SceneTopScoreMenu
         HBox nextScoreBoardH = new HBox();
         nextScoreBoardH.getChildren().add(buttonToShuffleMode);
 
+        HBox clearScoreboardH = new HBox();
+        clearScoreboardH.getChildren().add(buttonToClearLeaderboard);
+
         // set alignment of hboxes
         titleLabelH.setAlignment(Pos.CENTER);
         mainMenuButtonH.setAlignment(Pos.CENTER);
         nextScoreBoardH.setAlignment(Pos.CENTER);
+        clearScoreboardH.setAlignment(Pos.CENTER);
 
         // add things to the pane
         pane.add(titleLabelH, 0, 0, 4, 1);
-
         pane.add(mainMenuButtonH,1,6);
         pane.add(nextScoreBoardH,2,6);
+        pane.add(clearScoreboardH, 1, 7, 2, 1);
         populateLabelsSpeed(false); // false == don't show the Top 10 Score Title
 
         Scene scene = new Scene(pane,500,400);
 
         return scene;
-    }    
-       
+    }
+
     private void buttonClickToMainMenu(ActionEvent event)
     {        
        localStage.setTitle("Main Menu");
@@ -181,10 +180,16 @@ public class SceneTopScoreMenu
             populateLabelsSpeed(true);
             showingSpeed = true;
         }
-    }    
+    }
 
+    public void buttonClickToClearLeaderboard(ActionEvent event){
+        localStage.setTitle("Clear Leaderboard");
+        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_CLEARLEADERBOARD));
+        localStage.show();
+    }
 
     public static void populateLabelsSpeed(boolean doShowTitle){
+        isSpeedMode = true;
         if (doShowTitle == true)
             localStage.setTitle("Top 10 Speed Mode Scores");
 
@@ -205,6 +210,7 @@ public class SceneTopScoreMenu
     }
 
     public static void populateLabelsTimed(boolean doShowTitle){
+        isSpeedMode = false;
         if (doShowTitle == true)
             localStage.setTitle("Top 10 Timed Mode Scores");
 
@@ -222,6 +228,14 @@ public class SceneTopScoreMenu
 
         titleLabel.setText(scoreTimedTitle);
 
+    }
+
+    public static String getWhichScores(){
+        if(isSpeedMode){
+            return "Top 10 Speed Mode Scores";
+        }else{
+            return "Top 10 Timed Mode Scores";
+        }
     }
   
 }

@@ -44,6 +44,7 @@ public class SceneMaker extends Application
     private Scene sceneReadyStartSpeed;
     private Scene sceneResultsSpeed;
     private Scene sceneResultsTimed;
+    private Scene sceneClearLeaderboard;
     private Scene sceneBbye;
     
     private TopScoreMgr topScoreMgr;
@@ -129,10 +130,14 @@ public class SceneMaker extends Application
        SceneMainMenu sceneObjMainMenu = new SceneMainMenu(stage);
        sceneMainMenu = sceneObjMainMenu.getScene();
 
-       
        // Top score menu
        SceneTopScoreMenu sceneObjTopScoreMenu = new SceneTopScoreMenu(stage);
        sceneTopScore = sceneObjTopScoreMenu.getScene();
+
+       // Clear leaderboard
+        SceneClearLeaderboard sceneObjClearLeaderboard = new SceneClearLeaderboard(stage);
+        sceneClearLeaderboard = sceneObjClearLeaderboard.getScene();
+
        
        // Select game
        SceneSelectGame sceneObjSelectGame = new SceneSelectGame(stage);
@@ -179,6 +184,7 @@ public class SceneMaker extends Application
        SceneMgr.setScene(SceneMgr.IDX_READYSTARTSPEED,  sceneReadyStartSpeed);
        SceneMgr.setScene(SceneMgr.IDX_RESULTSSPEED,     sceneResultsSpeed);
        SceneMgr.setScene(SceneMgr.IDX_RESULTSTIMED,     sceneResultsTimed);
+       SceneMgr.setScene(SceneMgr.IDX_CLEARLEADERBOARD, sceneClearLeaderboard);
        SceneMgr.setScene(SceneMgr.IDX_BBYE,             sceneBbye);
        
 

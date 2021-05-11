@@ -35,11 +35,9 @@ public class SceneMgr
     public static final int IDX_READYSTARTSPEED = 10;
     public static final int IDX_RESULTSSPEED = 11;
     public static final int IDX_RESULTSTIMED = 12;
-    public static final int IDX_LASTINDEX = 13;
-    
-    
-    
-    
+    public static final int IDX_CLEARLEADERBOARD = 13;
+    public static final int IDX_LASTINDEX = 14;
+
     
     // Giving a few extra slots
     private static Scene[] sceneList = new Scene[IDX_LASTINDEX + 5];
