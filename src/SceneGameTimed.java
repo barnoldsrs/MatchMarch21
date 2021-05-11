@@ -1,6 +1,3 @@
-
-
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -8,6 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -15,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,7 +26,7 @@ import java.util.Collections;
 public class SceneGameTimed
 {
     private Label myLabelGameTimed_1       = new Label("Game - Timed");
-    private static Label labelRunningTally = new Label("01234567891234");
+    private static Label labelRunningTally             = new Label("01234567891234");
     private Scene gameTimedScene;
     private static Stage localStage;
 
@@ -43,7 +42,8 @@ public class SceneGameTimed
     static int numWrong = 0;                      // overall counts
     static int time = 0;                        //time it takes to answer twenty correct questions
 
-    private static Label timeLabel = new Label("Time");
+    private static Label timeLabel = new Label("seconds");
+    private static Label strTime = new Label("Time: ");
 
     private static final Integer STARTTIME = 15;    // Number of seconds to let user play
     private static Timeline timeline;
@@ -53,19 +53,19 @@ public class SceneGameTimed
     static GridPane pane;
 
     public static boolean cancel;
-    
+
     public SceneGameTimed(Stage stage)
     {
         gameTimedScene = makeSceneGameTimed();
         localStage = stage;
         cancel = false;
     }
-    
+
     public Scene getScene()
     {
         return gameTimedScene;
     }
-    
+
     public Scene makeSceneGameTimed()
     {
         // Implement the layout of this scene/screen
@@ -86,7 +86,11 @@ public class SceneGameTimed
         myLabelGameTimed_1.setFont(SceneMaker.getTitleFont());
         labelRunningTally.setFont(SceneMaker.getLabelFont());
         timeLabel.setFont(SceneMaker.getTitleFont());
+        strTime.setFont(SceneMaker.getTitleFont());
 
+        HBox strTimeH = new HBox();
+        strTimeH.getChildren().add(strTime);
+        strTimeH.setAlignment(Pos.CENTER_RIGHT);
 
         // Bind the timeLabel text property to the timeSeconds property
         // so the seconds updates automatically on the screen
@@ -136,7 +140,8 @@ public class SceneGameTimed
         // Add the button and label into the pane
         pane.add(myLabelGameTimed_1, 0, 0);
         pane.add(labelRunningTally, 0, 4);
-        pane.add(timeLabel, 2, 0);
+        pane.add(strTimeH, 2, 0);
+        pane.add(timeLabel, 3, 0);
 
         pane.add(buttonToSelectGameMenu, 2, 4);
 
@@ -164,9 +169,11 @@ public class SceneGameTimed
                     new KeyFrame(Duration.seconds(STARTTIME+1),
                             new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent event) {
-                                    System.out.println("Got Timer timeout.");
-                                    cancel = true;
-                                    localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_RESULTSTIMED));
+                                    //System.out.println("Got Timer timeout.");
+                                    if (cancel == false) {
+                                        SceneResultsTimed.updatePlayerScore();
+                                        localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_RESULTSTIMED));
+                                    }
                                 }
                             },
                             new KeyValue(timeSeconds, 0)));
@@ -317,6 +324,7 @@ public class SceneGameTimed
         updateRunningTally();
         time = 0;
         nextSet(canList);
+        cancel = false;
     }
 
     public void initializeTargetCans(ArrayList<Candidate> canList)
@@ -333,10 +341,10 @@ public class SceneGameTimed
         cancel = x;
     }
 
-    public static void setTimeImg(int t){
-        timeLabel.setText("Time: " + t);
+    public static void setTimeImg(){
+        timeLabel.setText("Time: " + time);
         if(SceneMaker.isDebugging() == true) {
-            System.out.println("check --- " + t);
+            System.out.println("check --- " + time);
         }
 
     }
