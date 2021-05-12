@@ -7,8 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import java.awt.Color;
-import java.awt.Component;
+
+import java.awt.*;
+import java.util.Formatter;
 
 
 public class SceneTopScoreMenu
@@ -202,12 +203,25 @@ public class SceneTopScoreMenu
         // then insert a placeholder for the rest.
         int numElements = TopScoreMgr.getSpeedmodelist().size();
         for(int i = 0; i < numElements; i++) {
-            leaderBoard[i].setText(i + 1 + ". " + TopScoreMgr.getSpeedEntry(i).getName()
-                    + " " + SceneResultsSpeed.scoreToMinSec((int)TopScoreMgr.getSpeedEntry(i).getTime()));
+            // define variables
+            String speedEntryName = TopScoreMgr.getSpeedEntry(i).getName();
+            String speedEntryScore = SceneResultsSpeed.scoreToMinSec((int)TopScoreMgr.getSpeedEntry(i).getTime());
+
+            // check to make sure the name will fit
+            if(speedEntryName.length()>=10){
+                speedEntryName = speedEntryName.substring(0,10);
+            }
+
+            // format the string so it looks nice
+            String fText = new Formatter().format("%3d. %-12s %-5s",i+1,speedEntryName,speedEntryScore).toString();
+
+            // set the text to the formatted text
+            leaderBoard[i].setText(fText);
         }
 
         for(int i = numElements; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++) {
-            leaderBoard[i].setText(i + 1 + ". " + "<empty>");
+            String fText = new Formatter().format("%3d. %s", i+1, "<empty>").toString();
+            leaderBoard[i].setText(fText);
         }
 
         titleLabel.setText(scoreSpeedTitle);
@@ -223,12 +237,25 @@ public class SceneTopScoreMenu
         // then insert a space as a placeholder for the rest.
         int numElements = TopScoreMgr.getTimedmodelist().size();
         for(int i = 0; i < numElements; i++) {
-            leaderBoard[i].setText(i + 1 + ". " + TopScoreMgr.getTimedEntry(i).getName()
-                    + " " + TopScoreMgr.getTimedEntry(i).getCount());
+            // define variables
+            String timedEntryName = TopScoreMgr.getTimedEntry(i).getName();
+            int timedEntryScore = TopScoreMgr.getTimedEntry(i).getCount();
+
+            // check to make sure the name will fit
+            if(timedEntryName.length()>=10){
+                timedEntryName = timedEntryName.substring(0,10);
+            }
+
+            // format the string so it looks nice
+            String fText = new Formatter().format("%3d. %-12s: %-4d",i+1,timedEntryName,timedEntryScore).toString();
+
+            // set the text to the formatted text
+            leaderBoard[i].setText(fText);
         }
 
         for(int i = numElements; i < TopScoreMgr.TOPSCORE_MAX_ENTRIES; i++) {
-            leaderBoard[i].setText(i + 1 + ". " + "<empty>");
+            String fText = new Formatter().format("%3d. %s", i+1, "<empty>").toString();
+            leaderBoard[i].setText(fText);
         }
 
         titleLabel.setText(scoreTimedTitle);

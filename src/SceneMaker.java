@@ -55,15 +55,16 @@ public class SceneMaker extends Application
     static ArrayList<Candidate> canList;    // The entire list of Candidates
 
     //Font Instantiation
-    private static String      fontFamily  = "Impact";
+    private static String      fontFamilyT  = "Impact";
+    private static String       fontFamilyL = "Courier";
     private static double      labelFontSize    = 13;
     private static FontWeight labelFontWeight  = FontWeight.MEDIUM;
     private static double      titleFontSize    = 30;
     private static FontWeight  titleFontWeight  =  FontWeight.BOLD;
 
 
-    private static Font labelFont = Font.font(fontFamily, labelFontWeight, labelFontSize);
-    private static Font titleFont = Font.font(fontFamily, titleFontWeight , titleFontSize);
+    private static Font labelFont = Font.font(fontFamilyL, labelFontWeight, labelFontSize);
+    private static Font titleFont = Font.font(fontFamilyT, titleFontWeight , titleFontSize);
 
  
     @Override
