@@ -28,7 +28,7 @@ public class SceneTopScoreMenu
             "Dan 00:36.76","Pam 00:45.12","Bill 00:50.84","Toby 00:59.85","Alex 01:02.36"};
     private String[] top10Timed = {"Jill 00:10.34","Nathan 00:10.89","Kate 00:15.78","Flynn 00:19.25","Toby 00:23.45",
             "Bill 00:36.76","Alex 00:45.12","Dan 00:50.84","Harold 00:59.85","Pam 01:02.36"};
-    private boolean showingSpeed = true;
+    private static boolean showingSpeed = true;
     
     private int count = 0;
     
@@ -186,6 +186,11 @@ public class SceneTopScoreMenu
         localStage.setTitle("Clear Leaderboard");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_CLEARLEADERBOARD));
         localStage.show();
+    }
+
+    public static void setShowingSpeed(boolean newState)
+    {
+        showingSpeed = newState;
     }
 
     public static void populateLabelsSpeed(boolean doShowTitle){
