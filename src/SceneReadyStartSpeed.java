@@ -81,7 +81,7 @@ public class SceneReadyStartSpeed {
         localStage.setTitle("Speed Mode Game");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_GAMESPEED));
         localStage.show();
+        SceneGameSpeed.resetSpeedGame();
+        SceneGameSpeed.setAnimRunning(true);
     }
-
-
 }

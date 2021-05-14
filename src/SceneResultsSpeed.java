@@ -101,7 +101,7 @@ public class SceneResultsSpeed {
 
     private void buttonClickToSubmitScore(ActionEvent event) {
         System.out.println("FIXME: buttonClickToSubmitScore():setTitle:Top 10 Speed Mode Scores");
-        TopScoreMgr.submitSpeedScore(new TopScoreEntry(nameInput.getText() , SceneGameSpeed.numCorrect, SceneGameSpeed.time));
+        TopScoreMgr.submitSpeedScore(new TopScoreEntry(nameInput.getText() , SceneGameSpeed.numCorrect, SceneGameSpeed.getAnimSeconds()));
         SceneTopScoreMenu.populateLabelsSpeed(true);
         localStage.setTitle("Top 10 Speed Mode Scores");
         localStage.setScene(SceneMgr.getScene(SceneMgr.IDX_TOPSCOREMENU));
@@ -109,7 +109,7 @@ public class SceneResultsSpeed {
     }
 
     public static void updatePlayerScore() {
-        playerScore.setText("Score: " + scoreToMinSec(SceneGameSpeed.time));
+        playerScore.setText("Score: " + scoreToMinSec(SceneGameSpeed.getAnimSeconds()));
     }
 
     public static String scoreToMinSec(int t) {
