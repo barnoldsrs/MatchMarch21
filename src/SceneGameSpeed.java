@@ -31,6 +31,9 @@ public class SceneGameSpeed {
     private static AnimationTimer animTimer;
     private static long animEndTime;
     private static int animSeconds;
+    private static int numGotWrong = 0;
+
+    private static String text;
 
     static Button nameChoices[];
     static ArrayList<Candidate> targetDecoys;   // list of one target, N decoy Candidates
@@ -45,7 +48,7 @@ public class SceneGameSpeed {
     static int penalty = 5;                     //penalty modifier on score for answering question wrong (in seconds)
     static final int WIN_CONDITION = 10;        // Number of questions to answer correct to end this game
 
-    private static Label timeLabel = new Label("");
+    private static Label timeLabel = new Label("0");
     private static Label strTime = new Label("Time: ");
 
     static GridPane pane;
@@ -154,8 +157,9 @@ public class SceneGameSpeed {
                 animTimer = new AnimationTimer() {
                     public void handle(long now) {
                         long elapsedTime = System.currentTimeMillis() - animStartTime;
-                        String text = String.format("%1d", (int)(elapsedTime / 1000.0));
+                        elapsedTime += numWrong*penalty*1000;
                         timeLabel.setText(text);
+                        text = String.format("%1d", (int)(elapsedTime / 1000.0));
                     }
                 };
             }
