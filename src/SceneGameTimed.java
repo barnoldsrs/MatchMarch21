@@ -45,7 +45,7 @@ public class SceneGameTimed
     private static Label timeLabel = new Label("seconds");
     private static Label strTime = new Label("Time: ");
 
-    private static final Integer STARTTIME = 15;    // Number of seconds to let user play
+    private static final Integer STARTTIME = 30;    // Number of seconds to let user play
     private static Timeline timeline;
     private static IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 

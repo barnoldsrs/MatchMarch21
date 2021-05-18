@@ -1,5 +1,5 @@
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.Static;
+//import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+//import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.Static;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
