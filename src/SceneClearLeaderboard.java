@@ -25,11 +25,11 @@ public class SceneClearLeaderboard {
     public Scene makeClearLeaderboardScene(){
         // create buttons + text
         Button buttonToClearTimed = new Button("Clear Timed Mode Leaderboard");
-        Button buttonToClearSpeed = new Button("CLear Speed Mode Leaderboard");
+        Button buttonToClearSpeed = new Button("Clear Speed Mode Leaderboard");
         Button buttonBackToLeaderboards = new Button("Back");
 
         Label warningLabel = new Label("WARNING:");
-        Label warningTextLabel = new Label("The action of clearing the scores from your scoreboard cannot be undone.");
+        Label warningTextLabel = new Label("The action of clearing the scores from your scoreboard \n                    cannot be undone.");
 
         // set fonts
         warningLabel.setFont(SceneMaker.getTitleFont());
